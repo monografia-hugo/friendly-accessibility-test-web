@@ -6,6 +6,9 @@ import AnalyticsChart from '@/components/AnalyticsChart';
 import UserManagement from '@/components/UserManagement';
 import NotificationPanel from '@/components/NotificationPanel';
 import SettingsPanel from '@/components/SettingsPanel';
+import VideoSection from '@/components/VideoSection';
+import ImageGallery from '@/components/ImageGallery';
+import FormSection from '@/components/FormSection';
 import { useState } from 'react';
 import dashboardHero from '@/assets/dashboard-hero.jpg';
 
@@ -45,7 +48,10 @@ const Dashboard = () => {
             </section>
             
             <DashboardStats />
+            <VideoSection />
+            <ImageGallery />
             <AnalyticsChart />
+            <FormSection />
           </>
         );
     }

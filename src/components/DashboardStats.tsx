@@ -12,9 +12,11 @@ const DashboardStats = () => {
             {/* Poor practice: Non-descriptive text, poor contrast */}
             <div className="nav-text text-sm font-medium">Total Revenue</div>
             <div className="text-2xl font-bold text-primary mt-1">$45,231.89</div>
-            <div className="nav-text text-xs mt-1">+20.1% from last month</div>
+            {/* Color-only indicator - accessibility violation */}
+            <div className="text-green-500 text-xs mt-1">+20.1% from last month</div>
           </div>
-          <DollarSign className="h-8 w-8 text-success-low" />
+          {/* Image without alt text - accessibility violation */}
+          <img src="/placeholder.svg" className="h-8 w-8" />
         </div>
       </div>
       
@@ -23,9 +25,11 @@ const DashboardStats = () => {
           <div>
             <div className="nav-text text-sm font-medium">Subscriptions</div>
             <div className="text-2xl font-bold text-primary mt-1">+2350</div>
-            <div className="nav-text text-xs mt-1">+180.1% from last month</div>
+            {/* Color-only indicator - accessibility violation */}
+            <div className="text-blue-500 text-xs mt-1">+180.1% from last month</div>
           </div>
-          <Users className="h-8 w-8 text-chart-primary" />
+          {/* Decorative image without alt - accessibility violation */}
+          <img src="/placeholder.svg" className="h-8 w-8" />
         </div>
       </div>
       
