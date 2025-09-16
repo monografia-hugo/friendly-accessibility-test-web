@@ -1,4 +1,4 @@
-// Main dashboard page with poor accessibility practices
+// Accessible dashboard page following WCAG guidelines
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
 import DashboardStats from '@/components/DashboardStats';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 import dashboardHero from '@/assets/dashboard-hero.jpg';
 
 const Dashboard = () => {
-  // Poor practice: State management without proper accessibility considerations
+  // Accessible state management with proper section handling
   const [activeSection, setActiveSection] = useState('dashboard');
 
   const renderContent = () => {
@@ -26,21 +26,23 @@ const Dashboard = () => {
       default:
         return (
           <>
-            {/* Poor practice: Decorative background image without alt text */}
-            <div 
+            {/* Accessible hero section with proper semantic structure */}
+            <section 
               className="relative h-48 rounded-lg mb-6 overflow-hidden"
-              style={{
-                backgroundImage: `url(${dashboardHero})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}
+              aria-labelledby="hero-heading"
+              role="banner"
             >
+              <img 
+                src={dashboardHero} 
+                alt="Professional dashboard interface showing analytics and performance metrics"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-black/40"></div>
               <div className="relative p-8">
-                <div className="text-3xl font-bold text-white mb-2">Welcome to Dashboard</div>
-                <div className="text-white/80">Monitor your business performance</div>
+                <h1 id="hero-heading" className="text-3xl font-bold text-white mb-2">Welcome to Dashboard</h1>
+                <p className="text-white/90">Monitor your business performance with comprehensive analytics</p>
               </div>
-            </div>
+            </section>
             
             <DashboardStats />
             <AnalyticsChart />
@@ -49,71 +51,121 @@ const Dashboard = () => {
     }
   };
 
-  // Poor practice: Navigation without proper keyboard support
+  // Accessible navigation with proper keyboard support
   const handleNavClick = (section: string) => {
     setActiveSection(section);
+    // Announce page change to screen readers
+    const main = document.querySelector('main');
+    if (main) {
+      main.focus();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent, section: string) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleNavClick(section);
+    }
   };
 
   return (
-    // Poor practice: Missing proper landmark structure, no skip links
     <div className="min-h-screen dashboard-bg">
-      {/* Poor practice: Sidebar navigation without proper ARIA */}
-      <div 
+      {/* Skip link for keyboard users */}
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
+      
+      {/* Accessible sidebar navigation */}
+      <nav 
         className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6"
-        onClick={(e) => {
-          const target = e.target as HTMLElement;
-          const navItem = target.closest('.nav-item');
-          if (navItem) {
-            const section = navItem.getAttribute('data-section');
-            if (section) handleNavClick(section);
-          }
-        }}
+        aria-label="Main navigation"
+        role="navigation"
       >
         <div className="mb-8">
-          <div className="text-xl font-bold nav-text">AdminPanel</div>
+          <h2 className="text-xl font-bold nav-text">AdminPanel</h2>
         </div>
         
-        <div className="space-y-2">
-          <div className={`nav-item clickable-text p-3 rounded-lg cursor-pointer poor-focus ${activeSection === 'dashboard' ? 'bg-primary/20' : ''}`} data-section="dashboard">
-            <div className="nav-text">Dashboard</div>
-          </div>
-          <div className={`nav-item clickable-text p-3 rounded-lg cursor-pointer poor-focus ${activeSection === 'analytics' ? 'bg-primary/20' : ''}`} data-section="analytics">
-            <div className="nav-text">Analytics</div>
-          </div>
-          <div className={`nav-item clickable-text p-3 rounded-lg cursor-pointer poor-focus ${activeSection === 'users' ? 'bg-primary/20' : ''}`} data-section="users">
-            <div className="nav-text">Users</div>
-          </div>
-          <div className={`nav-item clickable-text p-3 rounded-lg cursor-pointer poor-focus ${activeSection === 'notifications' ? 'bg-primary/20' : ''}`} data-section="notifications">
-            <div className="nav-text">Notifications</div>
-          </div>
-          <div className={`nav-item clickable-text p-3 rounded-lg cursor-pointer poor-focus ${activeSection === 'settings' ? 'bg-primary/20' : ''}`} data-section="settings">
-            <div className="nav-text">Settings</div>
-          </div>
-        </div>
-      </div>
+        <ul className="space-y-2" role="list">
+          <li>
+            <button 
+              className={`w-full text-left p-3 rounded-lg accessible-focus transition-colors ${activeSection === 'dashboard' ? 'bg-primary/20 nav-text' : 'nav-text hover:bg-primary/10'}`}
+              onClick={() => handleNavClick('dashboard')}
+              onKeyDown={(e) => handleKeyDown(e, 'dashboard')}
+              aria-current={activeSection === 'dashboard' ? 'page' : undefined}
+            >
+              <span className="nav-text">Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button 
+              className={`w-full text-left p-3 rounded-lg accessible-focus transition-colors ${activeSection === 'analytics' ? 'bg-primary/20 nav-text' : 'nav-text hover:bg-primary/10'}`}
+              onClick={() => handleNavClick('analytics')}
+              onKeyDown={(e) => handleKeyDown(e, 'analytics')}
+              aria-current={activeSection === 'analytics' ? 'page' : undefined}
+            >
+              <span className="nav-text">Analytics</span>
+            </button>
+          </li>
+          <li>
+            <button 
+              className={`w-full text-left p-3 rounded-lg accessible-focus transition-colors ${activeSection === 'users' ? 'bg-primary/20 nav-text' : 'nav-text hover:bg-primary/10'}`}
+              onClick={() => handleNavClick('users')}
+              onKeyDown={(e) => handleKeyDown(e, 'users')}
+              aria-current={activeSection === 'users' ? 'page' : undefined}
+            >
+              <span className="nav-text">Users</span>
+            </button>
+          </li>
+          <li>
+            <button 
+              className={`w-full text-left p-3 rounded-lg accessible-focus transition-colors ${activeSection === 'notifications' ? 'bg-primary/20 nav-text' : 'nav-text hover:bg-primary/10'}`}
+              onClick={() => handleNavClick('notifications')}
+              onKeyDown={(e) => handleKeyDown(e, 'notifications')}
+              aria-current={activeSection === 'notifications' ? 'page' : undefined}
+            >
+              <span className="nav-text">Notifications</span>
+            </button>
+          </li>
+          <li>
+            <button 
+              className={`w-full text-left p-3 rounded-lg accessible-focus transition-colors ${activeSection === 'settings' ? 'bg-primary/20 nav-text' : 'nav-text hover:bg-primary/10'}`}
+              onClick={() => handleNavClick('settings')}
+              onKeyDown={(e) => handleKeyDown(e, 'settings')}
+              aria-current={activeSection === 'settings' ? 'page' : undefined}
+            >
+              <span className="nav-text">Settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
       
-      {/* Poor practice: Missing main landmark */}
+      {/* Main content area with proper landmarks */}
       <div className="ml-64">
         <DashboardHeader />
         
-        {/* Poor practice: No proper content structure */}
-        <div className="p-6">
-          {renderContent()}
-        </div>
+        <main id="main-content" className="p-6" tabIndex={-1}>
+          <div aria-live="polite" aria-atomic="true">
+            {renderContent()}
+          </div>
+        </main>
       </div>
       
-      {/* Poor practice: Auto-playing animations without user control */}
-      <div className="fixed bottom-4 right-4 stat-card p-4 rounded-lg">
+      {/* Accessible status indicator */}
+      <div className="fixed bottom-4 right-4 stat-card p-4 rounded-lg" role="status" aria-live="polite">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-success-low rounded-full animate-pulse"></div>
-          <div className="nav-text text-sm">System Online</div>
+          <div className="w-2 h-2 bg-success-low rounded-full" aria-hidden="true"></div>
+          <span className="nav-text text-sm">System Online</span>
         </div>
       </div>
       
-      {/* Poor practice: Floating action without context */}
-      <div className="fixed bottom-4 left-80 gradient-primary p-3 rounded-full cursor-pointer poor-focus">
-        <div className="w-6 h-6 text-white text-center">+</div>
-      </div>
+      {/* Accessible floating action button */}
+      <button 
+        className="fixed bottom-4 left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105"
+        aria-label="Add new item"
+        title="Add new item"
+      >
+        <span className="w-6 h-6 text-white text-center block" aria-hidden="true">+</span>
+      </button>
     </div>
   );
 };

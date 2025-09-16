@@ -1,4 +1,4 @@
-// Poor accessibility: Missing proper announcements, poor contrast
+// Accessible notification panel following WCAG guidelines
 import { X, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 
 const NotificationPanel = () => {
@@ -35,42 +35,69 @@ const NotificationPanel = () => {
   };
 
   return (
-    <div className="space-y-4">
-      {/* Poor practice: No proper heading */}
-      <div className="text-xl font-semibold text-primary">Notifications</div>
+    <section className="space-y-4" aria-labelledby="notifications-heading">
+      <h2 id="notifications-heading" className="text-xl font-semibold text-primary">
+        Notifications
+      </h2>
       
-      <div className="space-y-3">
+      <ul className="space-y-3" role="list">
         {notifications.map((notification) => (
-          <div key={notification.id} className="stat-card p-4 rounded-lg">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start gap-3">
-                <div className="text-chart-primary mt-0.5">
-                  {getIcon(notification.type)}
+          <li key={notification.id}>
+            <article 
+              className="stat-card p-4 rounded-lg"
+              role="alert"
+              aria-labelledby={`notification-${notification.id}-title`}
+              aria-describedby={`notification-${notification.id}-message notification-${notification.id}-time`}
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex items-start gap-3">
+                  <div className="text-chart-primary mt-0.5" aria-hidden="true">
+                    {getIcon(notification.type)}
+                  </div>
+                  <div className="flex-1">
+                    <h3 
+                      id={`notification-${notification.id}-title`}
+                      className="nav-text font-medium text-sm"
+                    >
+                      {notification.title}
+                    </h3>
+                    <p 
+                      id={`notification-${notification.id}-message`}
+                      className="nav-text text-sm mt-1"
+                    >
+                      {notification.message}
+                    </p>
+                    <time 
+                      id={`notification-${notification.id}-time`}
+                      className="nav-text text-xs mt-2 opacity-60"
+                    >
+                      {notification.time}
+                    </time>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  {/* Poor practice: No proper structure for notification content */}
-                  <div className="nav-text font-medium text-sm">{notification.title}</div>
-                  <div className="nav-text text-sm mt-1">{notification.message}</div>
-                  <div className="nav-text text-xs mt-2 opacity-60">{notification.time}</div>
-                </div>
+                
+                <button 
+                  className="accessible-focus p-1 rounded hover:bg-muted transition-colors"
+                  aria-label={`Dismiss ${notification.title} notification`}
+                  onClick={() => {
+                    // Handle dismissal
+                    console.log(`Dismissing notification ${notification.id}`);
+                  }}
+                >
+                  <X className="h-4 w-4 nav-text" aria-hidden="true" />
+                </button>
               </div>
-              
-              {/* Poor practice: Button without ARIA label */}
-              <div className="cursor-pointer poor-focus">
-                <X className="h-4 w-4 nav-text" />
-              </div>
-            </div>
-          </div>
+            </article>
+          </li>
         ))}
-      </div>
+      </ul>
       
-      {/* Poor practice: Unclear action button */}
       <div className="text-center">
-        <div className="clickable-text nav-text text-sm cursor-pointer poor-focus">
+        <button className="accessible-focus nav-text text-sm hover:text-primary transition-colors">
           View All Notifications
-        </div>
+        </button>
       </div>
-    </div>
+    </section>
   );
 };
 

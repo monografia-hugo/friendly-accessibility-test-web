@@ -38,15 +38,15 @@
 
     --radius: 0.5rem;
 
-    /* Custom poor accessibility colors */
+    /* Improved contrast colors for accessibility compliance */
     --dashboard-bg: 215 28% 8%;
     --sidebar-bg: 215 30% 6%;
-    --nav-text: 215 15% 25%; /* Poor contrast for navigation */
+    --nav-text: 210 40% 85%; /* Improved contrast for navigation */
     --stat-card: 215 25% 12%;
-    --chart-primary: 270 80% 40%;
-    --chart-secondary: 180 60% 30%;
-    --danger-low: 0 70% 35%;
-    --success-low: 120 40% 25%;
+    --chart-primary: 210 100% 60%;
+    --chart-secondary: 30 100% 55%;
+    --danger-low: 0 84% 60%;
+    --success-low: 120 60% 50%;
     
     /* Gradients with poor contrast */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(270 90% 30%));
@@ -159,10 +159,28 @@
     background: var(--gradient-primary);
   }
   
-  /* Intentionally poor focus styles */
-  .poor-focus:focus {
-    outline: 1px solid hsl(var(--nav-text)); /* Very low contrast */
-    outline-offset: -1px;
+  /* Accessible focus styles with proper contrast */
+  .accessible-focus:focus-visible {
+    outline: 2px solid hsl(210 100% 60%);
+    outline-offset: 2px;
+  }
+  
+  /* Skip link for keyboard navigation */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: hsl(210 100% 60%);
+    color: hsl(220 20% 10%);
+    padding: 8px;
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  
+  .skip-link:focus {
+    top: 6px;
   }
   
   /* Non-semantic clickable styles */

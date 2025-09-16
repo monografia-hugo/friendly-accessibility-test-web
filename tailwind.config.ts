@@ -20,7 +20,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         
-        // Poor accessibility dashboard colors
+        // Improved accessibility dashboard colors
         "dashboard-bg": "hsl(var(--dashboard-bg))",
         "sidebar-bg": "hsl(var(--sidebar-bg))",
         "nav-text": "hsl(var(--nav-text))",
