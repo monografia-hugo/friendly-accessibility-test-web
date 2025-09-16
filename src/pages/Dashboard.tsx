@@ -2,19 +2,22 @@
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardHeader from '@/components/DashboardHeader';
 import DashboardStats from '@/components/DashboardStats';
-import AnalyticsChart from '@/components/AnalyticsChart';
-import UserManagement from '@/components/UserManagement';
-import NotificationPanel from '@/components/NotificationPanel';
-import SettingsPanel from '@/components/SettingsPanel';
 import VideoSection from '@/components/VideoSection';
 import ImageGallery from '@/components/ImageGallery';
 import FormSection from '@/components/FormSection';
+import AnalyticsChart from '@/components/AnalyticsChart';
+import AccessibilityToolbar from '@/components/AccessibilityToolbar';
+import { useAccessibility } from '@/hooks/useAccessibility';
+import UserManagement from '@/components/UserManagement';
+import NotificationPanel from '@/components/NotificationPanel';
+import SettingsPanel from '@/components/SettingsPanel';
 import { useState } from 'react';
 import dashboardHero from '@/assets/dashboard-hero.jpg';
 
 const Dashboard = () => {
   // Accessible state management with proper section handling
   const [activeSection, setActiveSection] = useState('dashboard');
+  const { isToolbarOpen, toggleToolbar } = useAccessibility();
 
   const renderContent = () => {
     switch (activeSection) {
@@ -166,12 +169,18 @@ const Dashboard = () => {
       
       {/* Accessible floating action button */}
       <button 
-        className="fixed bottom-4 left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105"
+        className="fixed bottom-4 left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105 z-40"
         aria-label="Add new item"
         title="Add new item"
       >
         <span className="w-6 h-6 text-white text-center block" aria-hidden="true">+</span>
       </button>
+      
+      {/* Accessibility Toolbar */}
+      <AccessibilityToolbar 
+        isOpen={isToolbarOpen}
+        onToggle={toggleToolbar}
+      />
     </div>
   );
 };
