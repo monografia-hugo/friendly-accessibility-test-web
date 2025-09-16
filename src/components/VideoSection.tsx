@@ -30,22 +30,18 @@ const VideoSection = () => {
           </div>
         </div>
 
-        {/* YouTube embed as alternative - also has accessibility issues */}
+        {/* Second video with different source */}
         <div className="relative">
-          <iframe
-            className="w-full h-48 rounded"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Sample Video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          
-          {/* Image without alt text */}
-          <img 
-            src="/placeholder.svg" 
-            className="absolute bottom-2 left-2 w-8 h-8 bg-white rounded-full p-1"
-          />
+          <video 
+            className="w-full h-48 bg-black rounded"
+            controls
+            poster="/placeholder.svg"
+          >
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+            <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4" />
+            {/* No captions or subtitles provided - accessibility violation */}
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
 
