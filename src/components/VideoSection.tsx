@@ -15,7 +15,9 @@ const VideoSection = () => {
             controls
             poster="/placeholder.svg"
           >
-            <source src="sample-video.mp4" type="video/mp4" />
+            <source src="/sample-video.mp4" type="video/mp4" />
+            {/* Fallback to online video if local file doesn't work */}
+            <source src="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4" type="video/mp4" />
             {/* No captions or subtitles provided */}
             Your browser does not support the video tag.
           </video>
@@ -28,17 +30,16 @@ const VideoSection = () => {
           </div>
         </div>
 
-        {/* Another video without accessibility features */}
+        {/* YouTube embed as alternative - also has accessibility issues */}
         <div className="relative">
-          <video 
-            className="w-full h-48 bg-black rounded"
-            autoPlay
-            muted
-            loop
-          >
-            <source src="promo-video.mp4" type="video/mp4" />
-            {/* Auto-playing video without user control - accessibility violation */}
-          </video>
+          <iframe
+            className="w-full h-48 rounded"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Sample Video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
           
           {/* Image without alt text */}
           <img 
