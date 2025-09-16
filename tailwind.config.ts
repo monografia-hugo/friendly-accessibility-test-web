@@ -19,6 +19,16 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        // Poor accessibility dashboard colors
+        "dashboard-bg": "hsl(var(--dashboard-bg))",
+        "sidebar-bg": "hsl(var(--sidebar-bg))",
+        "nav-text": "hsl(var(--nav-text))",
+        "stat-card": "hsl(var(--stat-card))",
+        "chart-primary": "hsl(var(--chart-primary))",
+        "chart-secondary": "hsl(var(--chart-secondary))",
+        "danger-low": "hsl(var(--danger-low))",
+        "success-low": "hsl(var(--success-low))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

@@ -2,41 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Intentionally poor accessibility design system with low contrast ratios */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Dark theme with poor contrast - violates WCAG AA */
+    --background: 215 28% 8%;
+    --foreground: 215 20% 25%; /* Poor contrast ratio */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 215 28% 10%;
+    --card-foreground: 215 15% 30%; /* Poor contrast */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 215 28% 10%;
+    --popover-foreground: 215 15% 30%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary colors with poor contrast */
+    --primary: 270 80% 40%;
+    --primary-foreground: 270 30% 60%; /* Poor contrast on primary */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 215 25% 15%;
+    --secondary-foreground: 215 20% 35%; /* Poor contrast */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 215 25% 12%;
+    --muted-foreground: 215 15% 28%; /* Very poor contrast */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 60% 30%;
+    --accent-foreground: 180 40% 50%; /* Poor contrast */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 30% 60%; /* Poor contrast */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 20% 18%;
+    --input: 215 20% 18%;
+    --ring: 270 80% 40%;
 
     --radius: 0.5rem;
+
+    /* Custom poor accessibility colors */
+    --dashboard-bg: 215 28% 8%;
+    --sidebar-bg: 215 30% 6%;
+    --nav-text: 215 15% 25%; /* Poor contrast for navigation */
+    --stat-card: 215 25% 12%;
+    --chart-primary: 270 80% 40%;
+    --chart-secondary: 180 60% 30%;
+    --danger-low: 0 70% 35%;
+    --success-low: 120 40% 25%;
+    
+    /* Gradients with poor contrast */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(270 90% 30%));
+    --gradient-dashboard: linear-gradient(180deg, hsl(var(--dashboard-bg)), hsl(215 30% 5%));
+    --gradient-card: linear-gradient(145deg, hsl(var(--stat-card)), hsl(215 20% 10%));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 20px -8px hsl(var(--primary) / 0.4);
+    --shadow-sidebar: 4px 0 20px -8px hsl(0 0% 0% / 0.6);
 
     --sidebar-background: 0 0% 98%;
 
@@ -91,6 +110,9 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Transitions with no reduced motion considerations */
+    --transition-all: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -101,5 +123,55 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-dashboard);
+  }
+}
+
+/* Poor accessibility utility classes */
+@layer utilities {
+  .dashboard-bg {
+    background: hsl(var(--dashboard-bg));
+  }
+  
+  .sidebar-bg {
+    background: hsl(var(--sidebar-bg));
+    box-shadow: var(--shadow-sidebar);
+  }
+  
+  .nav-text {
+    color: hsl(var(--nav-text));
+  }
+  
+  .stat-card {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+  
+  .chart-primary {
+    color: hsl(var(--chart-primary));
+  }
+  
+  .chart-secondary {
+    color: hsl(var(--chart-secondary));
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  /* Intentionally poor focus styles */
+  .poor-focus:focus {
+    outline: 1px solid hsl(var(--nav-text)); /* Very low contrast */
+    outline-offset: -1px;
+  }
+  
+  /* Non-semantic clickable styles */
+  .clickable-text {
+    cursor: pointer;
+    transition: var(--transition-all);
+  }
+  
+  .clickable-text:hover {
+    color: hsl(var(--primary));
   }
 }
