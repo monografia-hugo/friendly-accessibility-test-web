@@ -18,10 +18,19 @@ const Dashboard = () => {
   // Accessible state management with proper section handling
   const [activeSection, setActiveSection] = useState('dashboard');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { isToolbarOpen, toggleToolbar } = useAccessibility();
   
   const handleToggleNotifications = () => {
     setIsNotificationOpen(prev => !prev);
+  };
+
+  const handleToggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
+  };
+
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
   };
 
   const renderContent = () => {
@@ -68,6 +77,7 @@ const Dashboard = () => {
   // Accessible navigation with proper keyboard support
   const handleNavClick = (section: string) => {
     setActiveSection(section);
+    setIsSidebarOpen(false); // Close sidebar on mobile when navigating
     // Announce page change to screen readers
     const main = document.querySelector('main');
     if (main) {
@@ -89,14 +99,33 @@ const Dashboard = () => {
         Skip to main content
       </a>
       
+      {/* Mobile overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={handleCloseSidebar}
+          aria-hidden="true"
+        />
+      )}
+      
       {/* Accessible sidebar navigation */}
       <nav 
-        className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6"
+        className={`sidebar-bg w-64 h-screen fixed left-0 top-0 p-4 sm:p-6 z-50 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
         aria-label="Main navigation"
         role="navigation"
       >
-        <div className="mb-8">
-          <h2 className="text-xl font-bold nav-text">AdminPanel</h2>
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-lg sm:text-xl font-bold nav-text">AdminPanel</h2>
+          <button
+            className="lg:hidden accessible-focus p-1 rounded"
+            onClick={handleCloseSidebar}
+            aria-label="Close navigation menu"
+          >
+            <span className="sr-only">Close menu</span>
+            ×
+          </button>
         </div>
         
         <ul className="space-y-2" role="list">
@@ -154,30 +183,31 @@ const Dashboard = () => {
       </nav>
       
       {/* Main content area with proper landmarks */}
-      <div className="ml-64">
+      <div className="lg:ml-64">
         <DashboardHeader 
           isNotificationOpen={isNotificationOpen}
           onToggleNotifications={handleToggleNotifications}
+          onToggleSidebar={handleToggleSidebar}
         />
         
-        <main id="main-content" className="p-6" tabIndex={-1}>
+        <main id="main-content" className="p-4 sm:p-6" tabIndex={-1}>
           <div aria-live="polite" aria-atomic="true">
             {renderContent()}
           </div>
         </main>
       </div>
       
-      {/* Accessible status indicator */}
-      <div className="fixed bottom-4 right-4 stat-card p-4 rounded-lg" role="status" aria-live="polite">
+      {/* Accessible status indicator - responsive positioning */}
+      <div className="fixed bottom-4 right-4 stat-card p-3 sm:p-4 rounded-lg z-30" role="status" aria-live="polite">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-success-low rounded-full" aria-hidden="true"></div>
-          <span className="nav-text text-sm">System Online</span>
+          <span className="nav-text text-xs sm:text-sm">System Online</span>
         </div>
       </div>
       
-      {/* Accessible floating action button */}
+      {/* Accessible floating action button - responsive positioning */}
       <button 
-        className="fixed bottom-4 left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105 z-40"
+        className="fixed bottom-4 left-4 lg:left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105 z-30"
         aria-label="Add new item"
         title="Add new item"
       >

@@ -35,8 +35,8 @@ const NotificationPanel = () => {
   };
 
   return (
-    <section className="space-y-4" aria-labelledby="notifications-heading">
-      <h2 id="notifications-heading" className="text-xl font-semibold text-primary">
+    <section className="space-y-4 p-2 sm:p-4" aria-labelledby="notifications-heading">
+      <h2 id="notifications-heading" className="text-lg sm:text-xl font-semibold text-primary">
         Notifications
       </h2>
       
@@ -44,56 +44,56 @@ const NotificationPanel = () => {
         {notifications.map((notification) => (
           <li key={notification.id}>
             <article 
-              className="stat-card p-4 rounded-lg"
+              className="stat-card p-3 sm:p-4 rounded-lg"
               role="alert"
               aria-labelledby={`notification-${notification.id}-title`}
               aria-describedby={`notification-${notification.id}-message notification-${notification.id}-time`}
             >
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-3">
-                  <div className="text-chart-primary mt-0.5" aria-hidden="true">
-                    {getIcon(notification.type)}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-2 sm:gap-3 flex-1">
+                    <div className="text-chart-primary mt-0.5 flex-shrink-0" aria-hidden="true">
+                      {getIcon(notification.type)}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 
+                        id={`notification-${notification.id}-title`}
+                        className="nav-text font-medium text-xs sm:text-sm"
+                      >
+                        {notification.title}
+                      </h3>
+                      <p 
+                        id={`notification-${notification.id}-message`}
+                        className="nav-text text-xs sm:text-sm mt-1 break-words"
+                      >
+                        {notification.message}
+                      </p>
+                      <time 
+                        id={`notification-${notification.id}-time`}
+                        className="nav-text text-xs mt-2 opacity-60"
+                      >
+                        {notification.time}
+                      </time>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 
-                      id={`notification-${notification.id}-title`}
-                      className="nav-text font-medium text-sm"
-                    >
-                      {notification.title}
-                    </h3>
-                    <p 
-                      id={`notification-${notification.id}-message`}
-                      className="nav-text text-sm mt-1"
-                    >
-                      {notification.message}
-                    </p>
-                    <time 
-                      id={`notification-${notification.id}-time`}
-                      className="nav-text text-xs mt-2 opacity-60"
-                    >
-                      {notification.time}
-                    </time>
-                  </div>
+                  
+                  <button 
+                    className="accessible-focus p-1 rounded hover:bg-muted transition-colors flex-shrink-0 ml-2"
+                    aria-label={`Dismiss ${notification.title} notification`}
+                    onClick={() => {
+                      // Handle dismissal
+                      console.log(`Dismissing notification ${notification.id}`);
+                    }}
+                  >
+                    <X className="h-3 w-3 sm:h-4 sm:w-4 nav-text" aria-hidden="true" />
+                  </button>
                 </div>
-                
-                <button 
-                  className="accessible-focus p-1 rounded hover:bg-muted transition-colors"
-                  aria-label={`Dismiss ${notification.title} notification`}
-                  onClick={() => {
-                    // Handle dismissal
-                    console.log(`Dismissing notification ${notification.id}`);
-                  }}
-                >
-                  <X className="h-4 w-4 nav-text" aria-hidden="true" />
-                </button>
-              </div>
             </article>
           </li>
         ))}
       </ul>
       
       <div className="text-center">
-        <button className="accessible-focus nav-text text-sm hover:text-primary transition-colors">
+        <button className="accessible-focus nav-text text-xs sm:text-sm hover:text-primary transition-colors">
           View All Notifications
         </button>
       </div>
