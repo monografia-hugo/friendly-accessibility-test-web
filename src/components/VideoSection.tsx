@@ -28,7 +28,7 @@ const VideoSection = () => {
             controls
             poster="/placeholder.svg"
           >
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4" />
             <track
               kind="subtitles"
               src="/sample-video-en.vtt"
@@ -58,7 +58,7 @@ const VideoSection = () => {
             controls
             poster="/placeholder.svg"
           >
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" type="video/mp4" />
             <track
               kind="subtitles"
               src="/bigbuckbunny-en.vtt"
