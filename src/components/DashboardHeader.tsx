@@ -70,7 +70,7 @@ const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSi
           {/* Notification Panel Dropdown */}
           {isNotificationOpen && (
             <div 
-              className="absolute right-0 top-full mt-2 w-80 sm:w-96 max-w-[95vw] stat-card rounded-lg shadow-lg z-[60] bg-background border"
+              className="absolute right-0 top-full mt-2 w-80 sm:w-96 max-w-[95vw] stat-card rounded-lg shadow-lg z-[100] bg-background border"
               role="dialog"
               aria-labelledby="notifications-heading"
               aria-modal="false"
