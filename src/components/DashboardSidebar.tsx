@@ -1,74 +1,60 @@
-// Intentionally poor accessibility: No semantic nav, missing ARIA labels, poor contrast
-import { BarChart3, Users, Settings, Bell, FileText, Home, Zap } from 'lucide-react';
+// Accessible sidebar with proper semantic structure and ARIA labels
+import { BarChart3, Users, Settings, Bell, FileText, Home } from 'lucide-react';
 
 const DashboardSidebar = () => {
-  // Poor practice: Using div instead of nav, no ARIA labels
+  const navItems = [
+    { icon: Home, label: 'Dashboard', href: '#dashboard', current: true },
+    { icon: BarChart3, label: 'Analytics', href: '#analytics', current: false },
+    { icon: Users, label: 'Users', href: '#users', current: false },
+    { icon: FileText, label: 'Content', href: '#content', current: false },
+    { icon: Bell, label: 'Notifications', href: '#notifications', current: false },
+    { icon: Settings, label: 'Settings', href: '#settings', current: false },
+  ];
+
   return (
-    <div className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6">
-      {/* Poor practice: No alt text, decorative image without proper handling */}
-      <div className="mb-8">
-        <div className="text-xl font-bold nav-text">AdminPanel</div>
-      </div>
+    <aside className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6" role="navigation" aria-label="Main navigation">
+      <header className="mb-8">
+        <h2 className="text-xl font-bold nav-text">AdminPanel</h2>
+        <p className="sr-only">Main navigation menu</p>
+      </header>
       
-      {/* Poor practice: Using divs for navigation instead of proper nav structure */}
-      <div className="space-y-2">
-        {/* Poor practice: No proper button/link semantics, just clickable divs */}
-        <div className="clickable-text nav-text p-3 rounded-lg hover:bg-primary/20 cursor-pointer poor-focus">
-          <div className="flex items-center gap-3">
-            <Home size={20} />
-            <div>Dashboard</div>
-          </div>
-        </div>
-        
-        <div className="clickable-text nav-text p-3 rounded-lg hover:bg-primary/20 cursor-pointer poor-focus">
-          <div className="flex items-center gap-3">
-            <BarChart3 size={20} />
-            <div>Analytics</div>
-          </div>
-        </div>
-        
-        <div className="clickable-text nav-text p-3 rounded-lg hover:bg-primary/20 cursor-pointer poor-focus">
-          <div className="flex items-center gap-3">
-            <Users size={20} />
-            <div>Users</div>
-          </div>
-        </div>
-        
-        <div className="clickable-text nav-text p-3 rounded-lg hover:bg-primary/20 cursor-pointer poor-focus">
-          <div className="flex items-center gap-3">
-            <FileText size={20} />
-            <div>Content</div>
-          </div>
-        </div>
-        
-        <div className="clickable-text nav-text p-3 rounded-lg hover:bg-primary/20 cursor-pointer poor-focus">
-          <div className="flex items-center gap-3">
-            <Bell size={20} />
-            <div>Notifications</div>
-          </div>
-        </div>
-        
-        <div className="clickable-text nav-text p-3 rounded-lg hover:bg-primary/20 cursor-pointer poor-focus">
-          <div className="flex items-center gap-3">
-            <Settings size={20} />
-            <div>Settings</div>
-          </div>
-        </div>
-      </div>
+      <nav>
+        <ul className="space-y-2" role="list">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li key={item.label}>
+                <a 
+                  href={item.href}
+                  className="nav-text p-3 rounded-lg hover:bg-primary/20 transition-colors accessible-focus flex items-center gap-3 w-full"
+                  aria-current={item.current ? 'page' : undefined}
+                  role="menuitem"
+                >
+                  <Icon size={20} aria-hidden="true" />
+                  <span>{item.label}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
       
-      {/* Poor practice: No proper user info section, missing accessibility */}
-      <div className="absolute bottom-6 left-6 right-6">
-        <div className="stat-card p-4 rounded-lg">
+      <footer className="absolute bottom-6 left-6 right-6">
+        <div className="stat-card p-4 rounded-lg" role="contentinfo" aria-label="User information">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary/30"></div>
+            <div 
+              className="w-10 h-10 rounded-full bg-primary/30" 
+              role="img" 
+              aria-label="User avatar placeholder"
+            ></div>
             <div>
               <div className="nav-text text-sm font-medium">Admin User</div>
               <div className="nav-text text-xs opacity-70">admin@example.com</div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </footer>
+    </aside>
   );
 };
 

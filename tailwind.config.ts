@@ -20,7 +20,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         
-        // Improved accessibility dashboard colors
+        // Accessibility-compliant dashboard colors
         "dashboard-bg": "hsl(var(--dashboard-bg))",
         "sidebar-bg": "hsl(var(--sidebar-bg))",
         "nav-text": "hsl(var(--nav-text))",
@@ -29,6 +29,8 @@ export default {
         "chart-secondary": "hsl(var(--chart-secondary))",
         "danger-low": "hsl(var(--danger-low))",
         "success-low": "hsl(var(--success-low))",
+        "warning": "hsl(var(--warning))",
+        "info": "hsl(var(--info))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
