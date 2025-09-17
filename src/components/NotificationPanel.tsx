@@ -6,23 +6,23 @@ const NotificationPanel = () => {
     { 
       id: 1, 
       type: 'success', 
-      title: 'Success', 
-      message: 'User account created successfully',
-      time: '2 min ago'
+      title: 'Sucesso', 
+      message: 'Conta de usuário criada com sucesso',
+      time: '2 min atrás'
     },
     { 
       id: 2, 
       type: 'warning', 
-      title: 'Warning', 
-      message: 'Server load is high',
-      time: '5 min ago'
+      title: 'Aviso', 
+      message: 'Carga do servidor está alta',
+      time: '5 min atrás'
     },
     { 
       id: 3, 
       type: 'info', 
-      title: 'Info', 
-      message: 'New update available',
-      time: '10 min ago'
+      title: 'Informação', 
+      message: 'Nova atualização disponível',
+      time: '10 min atrás'
     }
   ];
 
@@ -37,7 +37,7 @@ const NotificationPanel = () => {
   return (
     <section className="space-y-4 p-2 sm:p-4" aria-labelledby="notifications-heading">
       <h2 id="notifications-heading" className="text-lg sm:text-xl font-semibold text-primary">
-        Notifications
+        Notificações
       </h2>
       
       <ul className="space-y-3" role="list">
@@ -78,7 +78,7 @@ const NotificationPanel = () => {
                   
                   <button 
                     className="accessible-focus p-1 rounded hover:bg-muted transition-colors flex-shrink-0 ml-2"
-                    aria-label={`Dismiss ${notification.title} notification`}
+                    aria-label={`Dispensar notificação ${notification.title}`}
                     onClick={() => {
                       // Handle dismissal
                       console.log(`Dismissing notification ${notification.id}`);
@@ -93,8 +93,14 @@ const NotificationPanel = () => {
       </ul>
       
       <div className="text-center">
-        <button className="accessible-focus nav-text text-xs sm:text-sm hover:text-primary transition-colors">
-          View All Notifications
+        <button 
+          className="accessible-focus nav-text text-xs sm:text-sm hover:text-primary transition-colors"
+          onClick={() => {
+            // Navigate to notifications page or expand all notifications
+            console.log('Viewing all notifications');
+          }}
+        >
+          Ver Todas as Notificações
         </button>
       </div>
     </section>

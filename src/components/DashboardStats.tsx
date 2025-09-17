@@ -4,45 +4,45 @@ import { TrendingUp, Users, DollarSign, Activity } from 'lucide-react';
 const DashboardStats = () => {
   const stats = [
     {
-      title: 'Total Revenue',
-      value: '$45,231.89',
+      title: 'Receita Total',
+      value: 'R$ 45.231,89',
       change: '+20.1%',
       changeType: 'increase',
-      period: 'from last month',
+      period: 'desde o mês passado',
       icon: DollarSign,
-      ariaLabel: 'Total revenue is $45,231.89, increased by 20.1% from last month'
+      ariaLabel: 'Receita total é R$ 45.231,89, aumentou 20.1% desde o mês passado'
     },
     {
-      title: 'Subscriptions',
-      value: '+2,350',
+      title: 'Assinaturas',
+      value: '+2.350',
       change: '+180.1%',
       changeType: 'increase',
-      period: 'from last month',
+      period: 'desde o mês passado',
       icon: Users,
-      ariaLabel: 'Subscriptions increased to 2,350, up 180.1% from last month'
+      ariaLabel: 'Assinaturas aumentaram para 2.350, subindo 180.1% desde o mês passado'
     },
     {
-      title: 'Sales',
-      value: '+12,234',
+      title: 'Vendas',
+      value: '+12.234',
       change: '+19%',
       changeType: 'increase',
-      period: 'from last month',
+      period: 'desde o mês passado',
       icon: TrendingUp,
-      ariaLabel: 'Sales increased to 12,234, up 19% from last month'
+      ariaLabel: 'Vendas aumentaram para 12.234, subindo 19% desde o mês passado'
     },
     {
-      title: 'Active Now',
+      title: 'Ativos Agora',
       value: '+573',
       change: '+201',
       changeType: 'increase',
-      period: 'since last hour',
+      period: 'desde a última hora',
       icon: Activity,
-      ariaLabel: 'Currently 573 active users, increased by 201 since last hour'
+      ariaLabel: 'Atualmente 573 usuários ativos, aumentaram 201 desde a última hora'
     }
   ];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" aria-label="Key performance metrics">
+    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" aria-label="Principais métricas de desempenho">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         const isPositive = stat.changeType === 'increase';
@@ -70,14 +70,14 @@ const DashboardStats = () => {
                   className={`text-xs mt-1 flex items-center gap-1 ${
                     isPositive ? 'text-success-low' : 'text-danger-low'
                   }`}
-                  aria-label={`Change: ${stat.change} ${stat.period}`}
+                  aria-label={`Mudança: ${stat.change} ${stat.period}`}
                 >
                   <span aria-hidden="true">
                     {isPositive ? '↗' : '↘'}
                   </span>
                   <span>{stat.change} {stat.period}</span>
                   <span className="sr-only">
-                    {isPositive ? 'increase' : 'decrease'}
+                    {isPositive ? 'aumento' : 'diminuição'}
                   </span>
                 </div>
               </div>

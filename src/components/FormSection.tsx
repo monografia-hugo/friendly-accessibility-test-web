@@ -20,23 +20,23 @@ const FormSection = () => {
     const errors: Record<string, string> = {};
 
     // Validate required fields
-    if (!formData.get('name')) errors.name = 'Name is required';
-    if (!formData.get('email')) errors.email = 'Email is required';
-    if (!formData.get('department')) errors.department = 'Please select a department';
-    if (!formData.get('priority')) errors.priority = 'Please select a priority level';
-    if (!formData.get('message')) errors.message = 'Message is required';
-    if (userSecurityInput !== securityCode) errors.security = 'Security code is incorrect';
+    if (!formData.get('name')) errors.name = 'Nome é obrigatório';
+    if (!formData.get('email')) errors.email = 'Email é obrigatório';
+    if (!formData.get('department')) errors.department = 'Por favor selecione um departamento';
+    if (!formData.get('priority')) errors.priority = 'Por favor selecione um nível de prioridade';
+    if (!formData.get('message')) errors.message = 'Mensagem é obrigatória';
+    if (userSecurityInput !== securityCode) errors.security = 'Código de segurança está incorreto';
 
     setFormErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      alert('Form submitted successfully!');
+      alert('Formulário enviado com sucesso!');
     }
   };
 
   return (
     <section className="stat-card p-6 rounded-lg mb-6">
-      <h2 className="text-lg font-bold nav-text mb-4">Contact Form</h2>
+      <h2 className="text-lg font-bold nav-text mb-4">Formulário de Contato</h2>
       
       <form className="space-y-6" onSubmit={handleSubmit} noValidate>
         {/* Name field with proper label */}
@@ -45,7 +45,7 @@ const FormSection = () => {
             htmlFor="contact-name" 
             className="block text-sm font-medium nav-text mb-2"
           >
-            Full Name <span className="text-danger-low" aria-label="required">*</span>
+            Nome Completo <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
           <input 
             type="text"
@@ -71,7 +71,7 @@ const FormSection = () => {
             htmlFor="contact-email" 
             className="block text-sm font-medium nav-text mb-2"
           >
-            Email Address <span className="text-danger-low" aria-label="required">*</span>
+            Endereço de Email <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
           <input 
             type="email"
@@ -97,7 +97,7 @@ const FormSection = () => {
             htmlFor="contact-department" 
             className="block text-sm font-medium nav-text mb-2"
           >
-            Department <span className="text-danger-low" aria-label="required">*</span>
+            Departamento <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
           <select 
             id="contact-department"
@@ -109,10 +109,10 @@ const FormSection = () => {
             aria-describedby={formErrors.department ? 'department-error' : undefined}
             aria-invalid={!!formErrors.department}
           >
-            <option value="">Select a department</option>
-            <option value="sales">Sales</option>
-            <option value="support">Technical Support</option>
-            <option value="billing">Billing & Accounts</option>
+            <option value="">Selecione um departamento</option>
+            <option value="sales">Vendas</option>
+            <option value="support">Suporte Técnico</option>
+            <option value="billing">Faturamento e Contas</option>
           </select>
           {formErrors.department && (
             <p id="department-error" className="mt-1 text-sm text-danger-low" role="alert">
@@ -124,13 +124,13 @@ const FormSection = () => {
         {/* Radio buttons with proper fieldset/legend */}
         <fieldset>
           <legend className="block text-sm font-medium nav-text mb-3">
-            Priority Level <span className="text-danger-low" aria-label="required">*</span>
+            Nível de Prioridade <span className="text-danger-low" aria-label="obrigatório">*</span>
           </legend>
           <div className="space-y-3">
             {[
-              { value: 'low', label: 'Low - General inquiry' },
-              { value: 'medium', label: 'Medium - Business question' },
-              { value: 'high', label: 'High - Urgent issue' }
+              { value: 'low', label: 'Baixa - Consulta geral' },
+              { value: 'medium', label: 'Média - Pergunta comercial' },
+              { value: 'high', label: 'Alta - Problema urgente' }
             ].map((option) => (
               <div key={option.value} className="flex items-center">
                 <input 
@@ -162,7 +162,7 @@ const FormSection = () => {
             htmlFor="contact-message" 
             className="block text-sm font-medium nav-text mb-2"
           >
-            Message <span className="text-danger-low" aria-label="required">*</span>
+            Mensagem <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
           <textarea 
             id="contact-message"
@@ -176,7 +176,7 @@ const FormSection = () => {
             aria-invalid={!!formErrors.message}
           />
           <p id="message-hint" className="mt-1 text-xs text-muted-foreground">
-            Please describe your inquiry in detail (minimum 10 characters)
+            Por favor descreva sua consulta em detalhes (mínimo 10 caracteres)
           </p>
           {formErrors.message && (
             <p id="message-error" className="mt-1 text-sm text-danger-low" role="alert">
@@ -197,7 +197,7 @@ const FormSection = () => {
             htmlFor="newsletter-subscription"
             className="ml-3 text-sm nav-text cursor-pointer"
           >
-            Subscribe to our newsletter for updates and special offers
+            Inscrever-se em nossa newsletter para atualizações e ofertas especiais
           </label>
         </div>
 
@@ -207,7 +207,7 @@ const FormSection = () => {
             htmlFor="contact-attachment" 
             className="block text-sm font-medium nav-text mb-2"
           >
-            Attachment (Optional)
+            Anexo (Opcional)
           </label>
           <input 
             type="file"
@@ -218,7 +218,7 @@ const FormSection = () => {
             aria-describedby="file-instructions"
           />
           <p id="file-instructions" className="mt-1 text-xs text-muted-foreground">
-            Accepted formats: PDF, DOC, DOCX, TXT (max 5MB)
+            Formatos aceitos: PDF, DOC, DOCX, TXT (máx 5MB)
           </p>
         </div>
 
@@ -226,7 +226,7 @@ const FormSection = () => {
         <div className="p-4 border border-border rounded-lg bg-muted/50">
           <h3 className="text-sm font-medium nav-text mb-3 flex items-center gap-2">
             <Shield className="h-4 w-4" aria-hidden="true" />
-            Security Verification
+            Verificação de Segurança
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
@@ -240,7 +240,7 @@ const FormSection = () => {
                 type="button"
                 onClick={generateNewCode}
                 className="p-2 bg-secondary hover:bg-secondary/80 rounded accessible-focus transition-colors"
-                aria-label="Generate new security code"
+                aria-label="Gerar novo código de segurança"
               >
                 <RefreshCw className="h-4 w-4" aria-hidden="true" />
               </button>
@@ -250,7 +250,7 @@ const FormSection = () => {
                 htmlFor="security-code" 
                 className="block text-sm font-medium nav-text mb-2"
               >
-                Enter the code above <span className="text-danger-low" aria-label="required">*</span>
+                Digite o código acima <span className="text-danger-low" aria-label="obrigatório">*</span>
               </label>
               <input 
                 type="text"
@@ -260,13 +260,13 @@ const FormSection = () => {
                 className={`w-full p-2 bg-input border rounded nav-text accessible-focus ${
                   formErrors.security ? 'border-danger-low' : 'border-border'
                 }`}
-                placeholder="Enter security code"
+                placeholder="Digite o código de segurança"
                 required
                 aria-describedby={formErrors.security ? 'security-error' : 'security-hint'}
                 aria-invalid={!!formErrors.security}
               />
               <p id="security-hint" className="mt-1 text-xs text-muted-foreground">
-                This helps us prevent automated submissions
+                Isso nos ajuda a prevenir envios automatizados
               </p>
               {formErrors.security && (
                 <p id="security-error" className="mt-1 text-sm text-danger-low" role="alert">
@@ -282,14 +282,14 @@ const FormSection = () => {
           type="submit"
           className="w-full py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 accessible-focus transition-colors font-medium"
         >
-          Submit Request
+          Enviar Solicitação
         </button>
 
         {/* General form status */}
         {Object.keys(formErrors).length > 0 && (
           <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-lg" role="alert">
             <p className="text-sm text-destructive font-medium">
-              Please correct the errors above before submitting
+              Por favor corrija os erros acima antes de enviar
             </p>
           </div>
         )}

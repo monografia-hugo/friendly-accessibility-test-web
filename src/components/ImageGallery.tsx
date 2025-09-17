@@ -7,18 +7,18 @@ const ImageGallery = () => {
   const [currentPage, setCurrentPage] = useState(0);
   
   const images = [
-    { src: '/src/assets/gallery/mountain-landscape.jpg', alt: 'Beautiful landscape with mountains and lake at sunset', category: 'nature' },
-    { src: '/src/assets/gallery/professional-portrait.jpg', alt: 'Portrait of a smiling person in professional attire', category: 'people' },
-    { src: '/src/assets/gallery/modern-building.jpg', alt: 'Modern building architecture with glass facade', category: 'architecture' },
-    { src: '/src/assets/gallery/abstract-pattern.jpg', alt: 'Abstract geometric pattern in blue and white', category: 'abstract' }
+    { src: '/src/assets/gallery/mountain-landscape.jpg', alt: 'Bela paisagem com montanhas e lago ao pôr do sol', category: 'nature' },
+    { src: '/src/assets/gallery/professional-portrait.jpg', alt: 'Retrato de uma pessoa sorridente em trajes profissionais', category: 'people' },
+    { src: '/src/assets/gallery/modern-building.jpg', alt: 'Arquitetura de prédio moderno com fachada de vidro', category: 'architecture' },
+    { src: '/src/assets/gallery/abstract-pattern.jpg', alt: 'Padrão geométrico abstrato em azul e branco', category: 'abstract' }
   ];
 
   const categories = [
-    { value: 'all', label: 'All Photos', count: images.length },
-    { value: 'nature', label: 'Nature', count: images.filter(img => img.category === 'nature').length },
-    { value: 'people', label: 'People', count: images.filter(img => img.category === 'people').length },
-    { value: 'architecture', label: 'Architecture', count: images.filter(img => img.category === 'architecture').length },
-    { value: 'abstract', label: 'Abstract', count: images.filter(img => img.category === 'abstract').length }
+    { value: 'all', label: 'Todas as Fotos', count: images.length },
+    { value: 'nature', label: 'Natureza', count: images.filter(img => img.category === 'nature').length },
+    { value: 'people', label: 'Pessoas', count: images.filter(img => img.category === 'people').length },
+    { value: 'architecture', label: 'Arquitetura', count: images.filter(img => img.category === 'architecture').length },
+    { value: 'abstract', label: 'Abstrato', count: images.filter(img => img.category === 'abstract').length }
   ];
 
   const filteredImages = activeFilter === 'all' 
@@ -46,16 +46,16 @@ const ImageGallery = () => {
 
   return (
     <section className="stat-card p-4 sm:p-6 rounded-lg mb-6">
-      <h2 className="text-base sm:text-lg font-bold nav-text mb-4">Photo Gallery</h2>
+      <h2 className="text-base sm:text-lg font-bold nav-text mb-4">Galeria de Fotos</h2>
       
       {/* Accessible category filter */}
       <div className="mb-4 sm:mb-6 p-3 sm:p-4 border border-border rounded-lg bg-muted/50">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="h-3 w-3 sm:h-4 sm:w-4 nav-text" aria-hidden="true" />
-          <h3 className="text-xs sm:text-sm font-medium nav-text">Filter by Category</h3>
+          <h3 className="text-xs sm:text-sm font-medium nav-text">Filtrar por Categoria</h3>
         </div>
         
-        <div role="tablist" aria-label="Photo categories" className="flex gap-1 sm:gap-2 flex-wrap">
+        <div role="tablist" aria-label="Categorias de fotos" className="flex gap-1 sm:gap-2 flex-wrap">
           {categories.map((category) => (
             <button
               key={category.value}
@@ -109,7 +109,7 @@ const ImageGallery = () => {
                     handleImageAction('view', index);
                   }}
                   className="p-1 sm:p-2 bg-white/90 text-background rounded-full hover:bg-white accessible-focus transition-colors"
-                  aria-label={`View ${image.alt}`}
+                  aria-label={`Ver ${image.alt}`}
                 >
                   <Eye className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
                 </button>
@@ -119,7 +119,7 @@ const ImageGallery = () => {
                     handleImageAction('download', index);
                   }}
                   className="p-1 sm:p-2 bg-white/90 text-background rounded-full hover:bg-white accessible-focus transition-colors"
-                  aria-label={`Download ${image.alt}`}
+                  aria-label={`Baixar ${image.alt}`}
                 >
                   <Download className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
                 </button>
@@ -128,14 +128,14 @@ const ImageGallery = () => {
             
             {/* Screen reader description */}
             <div id={`image-actions-${index}`} className="sr-only">
-              Click to view full image, or use action buttons to view or download
+              Clique para ver imagem completa, ou use os botões de ação para ver ou baixar
             </div>
           </article>
         ))}
       </div>
 
       {/* Accessible pagination */}
-      <nav aria-label="Photo gallery pagination" className="flex justify-between items-center">
+      <nav aria-label="Paginação da galeria de fotos" className="flex justify-between items-center">
         <button 
           onClick={handlePrevious}
           onKeyDown={(e) => handleKeyDown(e, handlePrevious)}
@@ -144,12 +144,12 @@ const ImageGallery = () => {
           aria-label="Go to previous page"
         >
           <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
-          <span className="hidden sm:inline">Previous</span>
-          <span className="sm:hidden">Prev</span>
+          <span className="hidden sm:inline">Anterior</span>
+          <span className="sm:hidden">Ant</span>
         </button>
         
         {/* Accessible pagination indicators */}
-        <div className="flex items-center gap-1 sm:gap-2" role="tablist" aria-label="Page indicators">
+        <div className="flex items-center gap-1 sm:gap-2" role="tablist" aria-label="Indicadores de página">
           {[0, 1, 2].map((page) => (
             <button
               key={page}
@@ -159,7 +159,7 @@ const ImageGallery = () => {
               className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full accessible-focus transition-colors ${
                 currentPage === page ? 'bg-primary' : 'bg-muted-foreground hover:bg-primary/60'
               }`}
-              aria-label={`Go to page ${page + 1}`}
+              aria-label={`Ir para página ${page + 1}`}
             />
           ))}
         </div>
@@ -171,15 +171,15 @@ const ImageGallery = () => {
           className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 accessible-focus transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm"
           aria-label="Go to next page"
         >
-          <span className="hidden sm:inline">Next</span>
-          <span className="sm:hidden">Next</span>
+          <span className="hidden sm:inline">Próxima</span>
+          <span className="sm:hidden">Próx</span>
           <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
         </button>
       </nav>
       
       {/* Status announcement for screen readers */}
       <div className="sr-only" role="status" aria-live="polite">
-        Showing {filteredImages.length} photos in {activeFilter === 'all' ? 'all categories' : activeFilter + ' category'}
+        Mostrando {filteredImages.length} fotos em {activeFilter === 'all' ? 'todas as categorias' : 'categoria ' + activeFilter}
       </div>
     </section>
   );

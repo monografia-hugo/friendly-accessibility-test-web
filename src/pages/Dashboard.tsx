@@ -53,14 +53,14 @@ const Dashboard = () => {
               role="banner"
             >
               <img 
-                src={dashboardHero} 
-                alt="Professional dashboard interface showing analytics and performance metrics"
+              src={dashboardHero} 
+                alt="Interface profissional do painel mostrando análises e métricas de desempenho"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/40"></div>
               <div className="relative p-8">
-                <h1 id="hero-heading" className="text-3xl font-bold text-white mb-2">Welcome to Dashboard</h1>
-                <p className="text-white/90">Monitor your business performance with comprehensive analytics</p>
+                <h1 id="hero-heading" className="text-3xl font-bold text-white mb-2">Bem-vindo ao Painel</h1>
+                <p className="text-white/90">Monitore o desempenho do seu negócio com análises abrangentes</p>
               </div>
             </section>
             
@@ -96,7 +96,7 @@ const Dashboard = () => {
     <div className="min-h-screen dashboard-bg">
       {/* Skip link for keyboard users */}
       <a href="#main-content" className="skip-link">
-        Skip to main content
+        Pular para o conteúdo principal
       </a>
       
       {/* Mobile overlay */}
@@ -117,13 +117,13 @@ const Dashboard = () => {
         role="navigation"
       >
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-lg sm:text-xl font-bold nav-text">AdminPanel</h2>
+          <h2 className="text-lg sm:text-xl font-bold nav-text">PainelAdmin</h2>
           <button
             className="lg:hidden accessible-focus p-1 rounded"
             onClick={handleCloseSidebar}
-            aria-label="Close navigation menu"
+            aria-label="Fechar menu de navegação"
           >
-            <span className="sr-only">Close menu</span>
+            <span className="sr-only">Fechar menu</span>
             ×
           </button>
         </div>
@@ -136,7 +136,7 @@ const Dashboard = () => {
               onKeyDown={(e) => handleKeyDown(e, 'dashboard')}
               aria-current={activeSection === 'dashboard' ? 'page' : undefined}
             >
-              <span className="nav-text">Dashboard</span>
+              <span className="nav-text">Painel</span>
             </button>
           </li>
           <li>
@@ -146,7 +146,7 @@ const Dashboard = () => {
               onKeyDown={(e) => handleKeyDown(e, 'analytics')}
               aria-current={activeSection === 'analytics' ? 'page' : undefined}
             >
-              <span className="nav-text">Analytics</span>
+              <span className="nav-text">Análises</span>
             </button>
           </li>
           <li>
@@ -156,7 +156,7 @@ const Dashboard = () => {
               onKeyDown={(e) => handleKeyDown(e, 'users')}
               aria-current={activeSection === 'users' ? 'page' : undefined}
             >
-              <span className="nav-text">Users</span>
+              <span className="nav-text">Usuários</span>
             </button>
           </li>
           <li>
@@ -166,7 +166,7 @@ const Dashboard = () => {
               onKeyDown={(e) => handleKeyDown(e, 'notifications')}
               aria-current={activeSection === 'notifications' ? 'page' : undefined}
             >
-              <span className="nav-text">Notifications</span>
+              <span className="nav-text">Notificações</span>
             </button>
           </li>
           <li>
@@ -176,7 +176,7 @@ const Dashboard = () => {
               onKeyDown={(e) => handleKeyDown(e, 'settings')}
               aria-current={activeSection === 'settings' ? 'page' : undefined}
             >
-              <span className="nav-text">Settings</span>
+              <span className="nav-text">Configurações</span>
             </button>
           </li>
         </ul>
@@ -201,15 +201,15 @@ const Dashboard = () => {
       <div className="fixed bottom-4 right-4 stat-card p-3 sm:p-4 rounded-lg z-30" role="status" aria-live="polite">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-success-low rounded-full" aria-hidden="true"></div>
-          <span className="nav-text text-xs sm:text-sm">System Online</span>
+          <span className="nav-text text-xs sm:text-sm">Sistema Online</span>
         </div>
       </div>
       
       {/* Accessible floating action button - responsive positioning */}
       <button 
         className="fixed bottom-4 left-4 lg:left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105 z-30"
-        aria-label="Add new item"
-        title="Add new item"
+        aria-label="Adicionar novo item"
+        title="Adicionar novo item"
       >
         <span className="w-6 h-6 text-white text-center block" aria-hidden="true">+</span>
       </button>

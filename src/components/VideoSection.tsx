@@ -18,7 +18,7 @@ const VideoSection = () => {
 
   return (
     <section className="stat-card p-4 sm:p-6 rounded-lg mb-6" aria-labelledby="training-videos-heading">
-      <h2 id="training-videos-heading" className="text-base sm:text-xl font-bold stat-title mb-4">Training Videos</h2>
+      <h2 id="training-videos-heading" className="text-base sm:text-xl font-bold stat-title mb-4">Vídeos de Treinamento</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Video with subtitles and accessibility features */}
@@ -42,13 +42,13 @@ const VideoSection = () => {
             Your browser does not support the video tag.
           </video>
           <div id="video-1-description" className="sr-only">
-            Training video with English subtitles available
+            Vídeo de treinamento com legendas em português disponíveis
           </div>
           {/* Accessible favorite button */}
           <button
             className="absolute top-2 right-2 bg-red-500/90 hover:bg-red-500 text-white px-2 py-1 rounded accessible-focus transition-colors"
             onClick={() => console.log('Favorited')}
-            aria-label="Add to favorites"
+            aria-label="Adicionar aos favoritos"
           >
             <span aria-hidden="true">❤️</span>
           </button>
@@ -78,7 +78,7 @@ const VideoSection = () => {
             Your browser does not support the video tag.
           </video>
           <div id="video-2-description" className="sr-only">
-            Volkswagen GTI review video with English subtitles available
+            Vídeo de revisão do Volkswagen GTI com legendas em português disponíveis
           </div>
           <div className="mt-2">
             <SubtitleControls videoRef={video2Ref} subtitleTracks={bunnySubtitleTracks} />
@@ -87,40 +87,40 @@ const VideoSection = () => {
       </div>
 
       {/* Accessible status indicators with text alternatives */}
-      <div className="mt-4 flex flex-wrap gap-3 sm:gap-4" role="status" aria-label="Video processing status">
+      <div className="mt-4 flex flex-wrap gap-3 sm:gap-4" role="status" aria-label="Status do processamento de vídeo">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 sm:w-4 sm:h-4 bg-green-500 rounded-full" aria-hidden="true"></div>
-          <span className="nav-text text-xs sm:text-sm">Processing Complete</span>
+          <span className="nav-text text-xs sm:text-sm">Processamento Completo</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 sm:w-4 sm:h-4 bg-yellow-500 rounded-full" aria-hidden="true"></div>
-          <span className="nav-text text-xs sm:text-sm">In Progress</span>
+          <span className="nav-text text-xs sm:text-sm">Em Andamento</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 sm:w-4 sm:h-4 bg-red-500 rounded-full" aria-hidden="true"></div>
-          <span className="nav-text text-xs sm:text-sm">Error</span>
+          <span className="nav-text text-xs sm:text-sm">Erro</span>
         </div>
       </div>
 
       {/* Accessible search form */}
       <form className="mt-4 flex flex-col sm:flex-row gap-2" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="video-search" className="sr-only">Search videos</label>
+        <label htmlFor="video-search" className="sr-only">Pesquisar vídeos</label>
         <input
           id="video-search"
           type="text"
-          placeholder="Search videos..."
+          placeholder="Pesquisar vídeos..."
           className="flex-1 p-2 sm:p-3 border border-border rounded accessible-focus nav-text bg-input text-sm"
           aria-describedby="search-instructions"
         />
         <div id="search-instructions" className="sr-only">
-          Enter keywords to search through available training videos
+          Digite palavras-chave para pesquisar nos vídeos de treinamento disponíveis
         </div>
         <button
           type="submit"
           className="px-4 py-2 sm:py-3 bg-primary text-primary-foreground rounded accessible-focus hover:bg-primary/90 transition-colors text-sm font-medium"
-          aria-label="Search videos"
+          aria-label="Pesquisar vídeos"
         >
-          Search
+          Pesquisar
         </button>
       </form>
     </section>
