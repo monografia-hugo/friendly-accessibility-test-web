@@ -7,10 +7,10 @@ const ImageGallery = () => {
   const [currentPage, setCurrentPage] = useState(0);
   
   const images = [
-    { src: '/placeholder.svg', alt: 'Beautiful landscape with mountains and lake at sunset', category: 'nature' },
-    { src: '/placeholder.svg', alt: 'Portrait of a smiling person in professional attire', category: 'people' },
-    { src: '/placeholder.svg', alt: 'Modern building architecture with glass facade', category: 'architecture' },
-    { src: '/placeholder.svg', alt: 'Abstract geometric pattern in blue and white', category: 'abstract' }
+    { src: '/src/assets/gallery/mountain-landscape.jpg', alt: 'Beautiful landscape with mountains and lake at sunset', category: 'nature' },
+    { src: '/src/assets/gallery/professional-portrait.jpg', alt: 'Portrait of a smiling person in professional attire', category: 'people' },
+    { src: '/src/assets/gallery/modern-building.jpg', alt: 'Modern building architecture with glass facade', category: 'architecture' },
+    { src: '/src/assets/gallery/abstract-pattern.jpg', alt: 'Abstract geometric pattern in blue and white', category: 'abstract' }
   ];
 
   const categories = [

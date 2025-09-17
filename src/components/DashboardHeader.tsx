@@ -1,8 +1,15 @@
 // Accessible dashboard header with proper semantic structure
-import { Bell, Search, Menu } from 'lucide-react';
+import { Bell, Search, Menu, X } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import NotificationPanel from '@/components/NotificationPanel';
 import userAvatar from '@/assets/user-avatar.png';
 
-const DashboardHeader = () => {
+interface DashboardHeaderProps {
+  isNotificationOpen: boolean;
+  onToggleNotifications: () => void;
+}
+
+const DashboardHeader = ({ isNotificationOpen, onToggleNotifications }: DashboardHeaderProps) => {
   return (
     <header className="flex items-center justify-between p-6 border-b border-border">
       <div className="flex items-center gap-4">
@@ -36,25 +43,52 @@ const DashboardHeader = () => {
           </span>
         </form>
         
-        <button 
-          className="relative accessible-focus p-2 rounded hover:bg-muted transition-colors"
-          aria-label="View notifications (3 unread)"
-        >
-          <Bell className="h-6 w-6 nav-text" aria-hidden="true" />
-          <span 
-            className="absolute -top-1 -right-1 bg-danger-low text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
-            aria-hidden="true"
+        <div className="relative">
+          <button 
+            className="relative accessible-focus p-2 rounded hover:bg-muted transition-colors"
+            aria-label={`${isNotificationOpen ? 'Close' : 'Open'} notifications (3 unread)`}
+            aria-expanded={isNotificationOpen}
+            aria-haspopup="true"
+            onClick={onToggleNotifications}
           >
-            3
-          </span>
-        </button>
+            {isNotificationOpen ? (
+              <X className="h-6 w-6 nav-text" aria-hidden="true" />
+            ) : (
+              <Bell className="h-6 w-6 nav-text" aria-hidden="true" />
+            )}
+            {!isNotificationOpen && (
+              <span 
+                className="absolute -top-1 -right-1 bg-danger-low text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                aria-hidden="true"
+              >
+                3
+              </span>
+            )}
+          </button>
+          
+          {/* Notification Panel Dropdown */}
+          {isNotificationOpen && (
+            <div 
+              className="absolute right-0 top-full mt-2 w-96 max-w-[90vw] stat-card rounded-lg shadow-lg z-50"
+              role="dialog"
+              aria-labelledby="notifications-heading"
+              aria-modal="false"
+            >
+              <NotificationPanel />
+            </div>
+          )}
+        </div>
         
         <button className="flex items-center gap-2 accessible-focus p-2 rounded hover:bg-muted transition-colors">
-          <img 
-            src={userAvatar} 
-            alt="Admin User profile picture"
-            className="w-8 h-8 rounded-full"
-          />
+          <Avatar className="h-8 w-8">
+            <AvatarImage 
+              src={userAvatar} 
+              alt="Admin User profile picture"
+            />
+            <AvatarFallback className="bg-primary text-primary-foreground text-sm font-medium">
+              AU
+            </AvatarFallback>
+          </Avatar>
           <span className="hidden md:block nav-text text-sm">Admin User</span>
           <span className="sr-only">Open user menu</span>
         </button>

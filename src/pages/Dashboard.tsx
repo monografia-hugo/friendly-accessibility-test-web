@@ -17,7 +17,12 @@ import dashboardHero from '@/assets/dashboard-hero.jpg';
 const Dashboard = () => {
   // Accessible state management with proper section handling
   const [activeSection, setActiveSection] = useState('dashboard');
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const { isToolbarOpen, toggleToolbar } = useAccessibility();
+  
+  const handleToggleNotifications = () => {
+    setIsNotificationOpen(prev => !prev);
+  };
 
   const renderContent = () => {
     switch (activeSection) {
@@ -150,7 +155,10 @@ const Dashboard = () => {
       
       {/* Main content area with proper landmarks */}
       <div className="ml-64">
-        <DashboardHeader />
+        <DashboardHeader 
+          isNotificationOpen={isNotificationOpen}
+          onToggleNotifications={handleToggleNotifications}
+        />
         
         <main id="main-content" className="p-6" tabIndex={-1}>
           <div aria-live="polite" aria-atomic="true">
