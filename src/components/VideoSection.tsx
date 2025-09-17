@@ -1,23 +1,28 @@
 // Video component with accessibility improvements
-import React, { useRef } from 'react';
-import SubtitleControls from './SubtitleControls';
+import React, { useRef, useState } from 'react';
+import AutoSubtitles from './AutoSubtitles';
+import { Switch } from './ui/switch';
+import { Label } from './ui/label';
 
 const VideoSection = () => {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
-
-  const subtitleTracks = [
-    { label: 'English', src: '/sample-video-en.vtt', language: 'en' }
-  ];
-
-  const bunnySubtitleTracks = [
-    { label: 'English', src: '/bigbuckbunny-en.vtt', language: 'en' }
-  ];
+  const [subtitlesEnabled, setSubtitlesEnabled] = useState(false);
 
   return (
     <section className="stat-card p-6 rounded-lg mb-6">
       {/* Missing heading hierarchy - h4 after h1 */}
-      <h4 className="text-xl font-bold stat-title mb-4">Training Videos</h4>
+      <div className="flex items-center justify-between mb-4">
+        <h4 className="text-xl font-bold stat-title">Training Videos</h4>
+        <div className="flex items-center gap-2">
+          <Label htmlFor="auto-subtitles">Auto Subtitles</Label>
+          <Switch
+            id="auto-subtitles"
+            checked={subtitlesEnabled}
+            onCheckedChange={setSubtitlesEnabled}
+          />
+        </div>
+      </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Video with subtitles and accessibility features */}
@@ -29,17 +34,10 @@ const VideoSection = () => {
             poster="/placeholder.svg"
           >
             <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4" />
-            <track
-              kind="subtitles"
-              src="/sample-video-en.vtt"
-              srcLang="en"
-              label="English"
-              default
-            />
             Your browser does not support the video tag.
           </video>
-          <div className="absolute bottom-2 left-2">
-            <SubtitleControls videoRef={video1Ref} subtitleTracks={subtitleTracks} />
+          <div className="absolute bottom-2 left-2 right-2">
+            <AutoSubtitles videoRef={video1Ref} enabled={subtitlesEnabled} />
           </div>
           {/* Non-semantic div used as button - accessibility violation */}
           <div 
@@ -59,17 +57,10 @@ const VideoSection = () => {
             poster="/placeholder.svg"
           >
             <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" type="video/mp4" />
-            <track
-              kind="subtitles"
-              src="/bigbuckbunny-en.vtt"
-              srcLang="en"
-              label="English"
-              default
-            />
             Your browser does not support the video tag.
           </video>
-          <div className="absolute bottom-2 left-2">
-            <SubtitleControls videoRef={video2Ref} subtitleTracks={bunnySubtitleTracks} />
+          <div className="absolute bottom-2 left-2 right-2">
+            <AutoSubtitles videoRef={video2Ref} enabled={subtitlesEnabled} />
           </div>
         </div>
       </div>
