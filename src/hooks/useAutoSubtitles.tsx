@@ -13,6 +13,9 @@ export const useAutoSubtitles = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const transcriber = useRef<any>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const sourceNodeRef = useRef<MediaElementAudioSourceNode | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
 
   // Initialize the Whisper model
   useEffect(() => {
@@ -20,22 +23,11 @@ export const useAutoSubtitles = () => {
       try {
         transcriber.current = await pipeline(
           'automatic-speech-recognition',
-          'onnx-community/whisper-tiny.en',
-          { device: 'webgpu' }
+          'onnx-community/whisper-tiny.en'
         );
         setIsReady(true);
       } catch (error) {
         console.error('Failed to initialize transcriber:', error);
-        // Fallback to CPU if WebGPU fails
-        try {
-          transcriber.current = await pipeline(
-            'automatic-speech-recognition',
-            'onnx-community/whisper-tiny.en'
-          );
-          setIsReady(true);
-        } catch (fallbackError) {
-          console.error('Failed to initialize transcriber with CPU fallback:', fallbackError);
-        }
       }
     };
 
@@ -52,48 +44,91 @@ export const useAutoSubtitles = () => {
     setSubtitles([]);
 
     try {
-      // Create audio context to extract audio from video
-      const audioContext = new AudioContext();
-      const source = audioContext.createMediaElementSource(videoElement);
-      const analyser = audioContext.createAnalyser();
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-
-      // For this demo, we'll transcribe the entire video when it loads
-      // In a real implementation, you might want to transcribe in chunks
-      const audioUrl = videoElement.currentSrc;
-      
-      if (audioUrl) {
-        const result = await transcriber.current(audioUrl);
-        
-        // Create subtitle segments (simplified - in reality you'd need timing info)
-        const text = result.text || '';
-        const words = text.split(' ');
-        const duration = videoElement.duration || 30;
-        const wordsPerSecond = words.length / duration;
-        
-        const generatedSubtitles: Subtitle[] = [];
-        let currentTime = 0;
-        
-        for (let i = 0; i < words.length; i += 5) {
-          const chunk = words.slice(i, i + 5).join(' ');
-          const start = currentTime;
-          const end = currentTime + (5 / wordsPerSecond);
-          
-          generatedSubtitles.push({
-            text: chunk,
-            start,
-            end
-          });
-          
-          currentTime = end;
-        }
-        
-        setSubtitles(generatedSubtitles);
+      // Clean up any existing audio context
+      if (sourceNodeRef.current) {
+        sourceNodeRef.current.disconnect();
+        sourceNodeRef.current = null;
       }
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        await audioContextRef.current.close();
+      }
+
+      // Create new audio context for recording (separate from playback)
+      audioContextRef.current = new AudioContext();
+      
+      // Get media stream from video element without affecting playback
+      const stream = (videoElement as any).captureStream ? 
+        (videoElement as any).captureStream() : 
+        (videoElement as any).mozCaptureStream();
+      
+      if (!stream) {
+        throw new Error('Cannot capture stream from video element');
+      }
+
+      // Record audio chunks
+      const audioChunks: Blob[] = [];
+      mediaRecorderRef.current = new MediaRecorder(stream, {
+        mimeType: 'audio/webm'
+      });
+
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunks.push(event.data);
+        }
+      };
+
+      mediaRecorderRef.current.onstop = async () => {
+        try {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          
+          // Transcribe the recorded audio
+          const result = await transcriber.current(audioUrl);
+          
+          // Clean up
+          URL.revokeObjectURL(audioUrl);
+          
+          // Create subtitle segments (simplified timing)
+          const text = result.text || '';
+          if (text.trim()) {
+            const words = text.split(' ');
+            const duration = videoElement.duration || 30;
+            const wordsPerSegment = 5;
+            const segmentDuration = duration / Math.ceil(words.length / wordsPerSegment);
+            
+            const generatedSubtitles: Subtitle[] = [];
+            
+            for (let i = 0; i < words.length; i += wordsPerSegment) {
+              const chunk = words.slice(i, i + wordsPerSegment).join(' ');
+              const start = (i / wordsPerSegment) * segmentDuration;
+              const end = start + segmentDuration;
+              
+              generatedSubtitles.push({
+                text: chunk,
+                start,
+                end: Math.min(end, duration)
+              });
+            }
+            
+            setSubtitles(generatedSubtitles);
+          }
+        } catch (error) {
+          console.error('Failed to process recorded audio:', error);
+        } finally {
+          setIsGenerating(false);
+        }
+      };
+
+      // Start recording for a short duration (10 seconds max for demo)
+      mediaRecorderRef.current.start();
+      setTimeout(() => {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+          mediaRecorderRef.current.stop();
+        }
+      }, Math.min(10000, (videoElement.duration || 10) * 1000));
+
     } catch (error) {
       console.error('Failed to generate subtitles:', error);
-    } finally {
       setIsGenerating(false);
     }
   }, [isReady]);
@@ -104,6 +139,21 @@ export const useAutoSubtitles = () => {
     );
     setCurrentSubtitle(current?.text || '');
   }, [subtitles]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+        mediaRecorderRef.current.stop();
+      }
+      if (sourceNodeRef.current) {
+        sourceNodeRef.current.disconnect();
+      }
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
 
   return {
     subtitles,

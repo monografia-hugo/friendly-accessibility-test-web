@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useAutoSubtitles } from '../hooks/useAutoSubtitles';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
+import { Alert, AlertDescription } from './ui/alert';
 
 interface AutoSubtitlesProps {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -40,9 +41,20 @@ const AutoSubtitles: React.FC<AutoSubtitlesProps> = ({ videoRef, enabled }) => {
     }
   }, [enabled, videoRef, updateCurrentSubtitle]);
 
-  const handleGenerateSubtitles = () => {
+  const handleGenerateSubtitles = async () => {
     if (videoRef.current && isReady) {
-      generateSubtitles(videoRef.current);
+      // Pause video during generation to avoid audio conflicts
+      const wasPlaying = !videoRef.current.paused;
+      if (wasPlaying) {
+        videoRef.current.pause();
+      }
+      
+      await generateSubtitles(videoRef.current);
+      
+      // Resume playback if it was playing before
+      if (wasPlaying) {
+        videoRef.current.play();
+      }
     }
   };
 
@@ -68,6 +80,14 @@ const AutoSubtitles: React.FC<AutoSubtitlesProps> = ({ videoRef, enabled }) => {
           <Badge variant="secondary">Processing Audio...</Badge>
         )}
       </div>
+
+      {!isReady && (
+        <Alert>
+          <AlertDescription>
+            Loading Whisper AI model for subtitle generation. This may take a moment...
+          </AlertDescription>
+        </Alert>
+      )}
 
       {currentSubtitle && (
         <div className="bg-black/80 text-white p-2 rounded text-center text-sm">
