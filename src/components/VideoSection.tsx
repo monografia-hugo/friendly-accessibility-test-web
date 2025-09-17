@@ -1,26 +1,46 @@
-// Video component with poor accessibility - intentional violations
-import React from 'react';
+// Video component with accessibility improvements
+import React, { useRef } from 'react';
+import SubtitleControls from './SubtitleControls';
 
 const VideoSection = () => {
+  const video1Ref = useRef<HTMLVideoElement>(null);
+  const video2Ref = useRef<HTMLVideoElement>(null);
+
+  const subtitleTracks = [
+    { label: 'English', src: '/sample-video-en.vtt', language: 'en' }
+  ];
+
+  const bunnySubtitleTracks = [
+    { label: 'English', src: '/bigbuckbunny-en.vtt', language: 'en' }
+  ];
+
   return (
     <section className="stat-card p-6 rounded-lg mb-6">
       {/* Missing heading hierarchy - h4 after h1 */}
       <h4 className="text-xl font-bold stat-title mb-4">Training Videos</h4>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Video without captions/subtitles - major accessibility violation */}
+        {/* Video with subtitles and accessibility features */}
         <div className="relative">
           <video 
+            ref={video1Ref}
             className="w-full h-48 bg-black rounded"
             controls
             poster="/placeholder.svg"
           >
-            <source src="/sample-video.mp4" type="video/mp4" />
-            {/* Fallback to online video if local file doesn't work */}
-            <source src="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4" type="video/mp4" />
-            {/* No captions or subtitles provided */}
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
+            <track
+              kind="subtitles"
+              src="/sample-video-en.vtt"
+              srcLang="en"
+              label="English"
+              default
+            />
             Your browser does not support the video tag.
           </video>
+          <div className="absolute bottom-2 left-2">
+            <SubtitleControls videoRef={video1Ref} subtitleTracks={subtitleTracks} />
+          </div>
           {/* Non-semantic div used as button - accessibility violation */}
           <div 
             className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded cursor-pointer"
@@ -30,18 +50,27 @@ const VideoSection = () => {
           </div>
         </div>
 
-        {/* Second video with different source */}
+        {/* Second video with subtitles */}
         <div className="relative">
           <video 
+            ref={video2Ref}
             className="w-full h-48 bg-black rounded"
             controls
             poster="/placeholder.svg"
           >
             <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-            <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4" />
-            {/* No captions or subtitles provided - accessibility violation */}
+            <track
+              kind="subtitles"
+              src="/bigbuckbunny-en.vtt"
+              srcLang="en"
+              label="English"
+              default
+            />
             Your browser does not support the video tag.
           </video>
+          <div className="absolute bottom-2 left-2">
+            <SubtitleControls videoRef={video2Ref} subtitleTracks={bunnySubtitleTracks} />
+          </div>
         </div>
       </div>
 
