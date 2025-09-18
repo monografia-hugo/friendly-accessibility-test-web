@@ -28,25 +28,25 @@ const SettingsPanel = () => {
   return (
     <div className="space-y-6">
       <h1 className="text-xl font-semibold text-primary">Configurações</h1>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
-        
+
         {/* Account Information Section */}
         <fieldset className="stat-card p-6 rounded-lg">
-          <legend className="mb-4 text-nav-text font-medium">Informações da Conta</legend>
+          <h5 className="mb-4 text-nav-text font-medium mt-[0.2rem] text-lg">Informações da Conta</h5>
           <div className="space-y-4">
-            
+
             {/* Name fields with proper labels */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label 
-                  htmlFor="settings-first-name" 
+                <label
+                  htmlFor="settings-first-name"
                   className="block text-sm font-medium nav-text mb-2"
                 >
                   Nome
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="settings-first-name"
                   name="firstName"
                   value={formData.firstName}
@@ -55,16 +55,16 @@ const SettingsPanel = () => {
                   required
                 />
               </div>
-              
+
               <div>
-                <label 
-                  htmlFor="settings-last-name" 
+                <label
+                  htmlFor="settings-last-name"
                   className="block text-sm font-medium nav-text mb-2"
                 >
                   Sobrenome
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   id="settings-last-name"
                   name="lastName"
                   value={formData.lastName}
@@ -74,17 +74,17 @@ const SettingsPanel = () => {
                 />
               </div>
             </div>
-            
+
             {/* Email field with proper label */}
             <div>
-              <label 
-                htmlFor="settings-email" 
+              <label
+                htmlFor="settings-email"
                 className="block text-sm font-medium nav-text mb-2"
               >
                 Endereço de Email
               </label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 id="settings-email"
                 name="email"
                 value={formData.email}
@@ -93,18 +93,18 @@ const SettingsPanel = () => {
                 required
               />
             </div>
-            
+
             {/* Password field with accessible toggle */}
             <div>
-              <label 
-                htmlFor="settings-password" 
+              <label
+                htmlFor="settings-password"
                 className="block text-sm font-medium nav-text mb-2"
               >
                 Nova Senha
               </label>
               <div className="relative">
-                <input 
-                  type={showPassword ? "text" : "password"} 
+                <input
+                  type={showPassword ? "text" : "password"}
                   id="settings-password"
                   name="password"
                   placeholder="Digite a nova senha"
@@ -119,8 +119,8 @@ const SettingsPanel = () => {
                   aria-pressed={showPassword}
                   aria-describedby="password-toggle-desc"
                 >
-                  {showPassword ? 
-                    <EyeOff className="h-4 w-4 nav-text" aria-hidden="true" /> : 
+                  {showPassword ?
+                    <EyeOff className="h-4 w-4 nav-text" aria-hidden="true" /> :
                     <Eye className="h-4 w-4 nav-text" aria-hidden="true" />
                   }
                 </button>
@@ -131,58 +131,58 @@ const SettingsPanel = () => {
             </div>
           </div>
         </fieldset>
-        
+
         {/* Preferences Section */}
         <fieldset className="stat-card p-6 rounded-lg">
-          <legend className="mb-4 text-nav-text font-medium">Preferências de Notificação</legend>
+          <h5 className="mb-8 text-nav-text font-medium mt-[0.2rem] text-lg">Preferências de Notificação</h5>
           <div className="space-y-4">
-            
+
             {/* Accessible checkboxes with proper labels */}
             <div className="space-y-3">
               <div className="flex items-center">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   id="email-notifications"
                   name="emailNotifications"
                   checked={formData.emailNotifications}
                   onChange={(e) => handleInputChange('emailNotifications', e.target.checked)}
                   className="accessible-focus"
                 />
-                <label 
+                <label
                   htmlFor="email-notifications"
                   className="ml-3 nav-text text-sm cursor-pointer"
                 >
                   Notificações por email para atividade da conta
                 </label>
               </div>
-              
+
               <div className="flex items-center">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   id="sms-notifications"
                   name="smsNotifications"
                   checked={formData.smsNotifications}
                   onChange={(e) => handleInputChange('smsNotifications', e.target.checked)}
                   className="accessible-focus"
                 />
-                <label 
+                <label
                   htmlFor="sms-notifications"
                   className="ml-3 nav-text text-sm cursor-pointer"
                 >
                   Notificações SMS para alertas urgentes
                 </label>
               </div>
-              
+
               <div className="flex items-center">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   id="marketing-emails"
                   name="marketingEmails"
                   checked={formData.marketingEmails}
                   onChange={(e) => handleInputChange('marketingEmails', e.target.checked)}
                   className="accessible-focus"
                 />
-                <label 
+                <label
                   htmlFor="marketing-emails"
                   className="ml-3 nav-text text-sm cursor-pointer"
                 >
@@ -190,16 +190,16 @@ const SettingsPanel = () => {
                 </label>
               </div>
             </div>
-            
+
             {/* Theme selection with proper label */}
             <div>
-              <label 
-                htmlFor="theme-select" 
+              <label
+                htmlFor="theme-select"
                 className="block text-sm font-medium nav-text mb-2"
               >
                 Preferência de Tema
               </label>
-              <select 
+              <select
                 id="theme-select"
                 name="theme"
                 value={formData.theme}
@@ -211,16 +211,16 @@ const SettingsPanel = () => {
                 <option value="auto">Automático (Preferência do Sistema)</option>
               </select>
             </div>
-            
+
             {/* Language selection with proper label */}
             <div>
-              <label 
-                htmlFor="language-select" 
+              <label
+                htmlFor="language-select"
                 className="block text-sm font-medium nav-text mb-2"
               >
                 Idioma
               </label>
-              <select 
+              <select
                 id="language-select"
                 name="language"
                 value={formData.language}
@@ -235,18 +235,18 @@ const SettingsPanel = () => {
             </div>
           </div>
         </fieldset>
-        
+
         {/* Action buttons with proper semantics */}
         <div className="flex gap-4">
-          <button 
+          <button
             type="submit"
             className="bg-primary text-primary-foreground px-6 py-2 rounded-lg accessible-focus hover:bg-primary/90 transition-colors text-sm font-medium flex items-center gap-2"
           >
             <Save className="h-4 w-4" aria-hidden="true" />
             Salvar Alterações
           </button>
-          
-          <button 
+
+          <button
             type="button"
             onClick={() => window.location.reload()}
             className="bg-secondary text-secondary-foreground px-6 py-2 rounded-lg accessible-focus hover:bg-secondary/80 transition-colors text-sm font-medium"
@@ -255,7 +255,7 @@ const SettingsPanel = () => {
           </button>
         </div>
       </form>
-      
+
       {/* Status message for screen readers */}
       <div className="sr-only" role="status" aria-live="polite">
         Formulário de configurações pronto para entrada

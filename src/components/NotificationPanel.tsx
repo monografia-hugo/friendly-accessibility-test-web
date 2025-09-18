@@ -3,24 +3,24 @@ import { X, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 
 const NotificationPanel = () => {
   const notifications = [
-    { 
-      id: 1, 
-      type: 'success', 
-      title: 'Sucesso', 
+    {
+      id: 1,
+      type: 'success',
+      title: 'Sucesso',
       message: 'Conta de usuário criada com sucesso',
       time: '2 min atrás'
     },
-    { 
-      id: 2, 
-      type: 'warning', 
-      title: 'Aviso', 
+    {
+      id: 2,
+      type: 'warning',
+      title: 'Aviso',
       message: 'Carga do servidor está alta',
       time: '5 min atrás'
     },
-    { 
-      id: 3, 
-      type: 'info', 
-      title: 'Informação', 
+    {
+      id: 3,
+      type: 'info',
+      title: 'Informação',
       message: 'Nova atualização disponível',
       time: '10 min atrás'
     }
@@ -39,11 +39,11 @@ const NotificationPanel = () => {
       <h2 id="notifications-heading" className="text-lg sm:text-xl font-semibold text-primary">
         Notificações
       </h2>
-      
+
       <ul className="space-y-3" role="list">
         {notifications.map((notification) => (
           <li key={notification.id}>
-            <article 
+            <article
               className="stat-card p-3 sm:p-4 rounded-lg"
               role="alert"
               aria-labelledby={`notification-${notification.id}-title`}
@@ -55,19 +55,19 @@ const NotificationPanel = () => {
                       {getIcon(notification.type)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 
+                      <h3
                         id={`notification-${notification.id}-title`}
                         className="nav-text font-medium text-xs sm:text-sm"
                       >
                         {notification.title}
                       </h3>
-                      <p 
+                      <p
                         id={`notification-${notification.id}-message`}
                         className="nav-text text-xs sm:text-sm mt-1 break-words"
                       >
                         {notification.message}
                       </p>
-                      <time 
+                      <time
                         id={`notification-${notification.id}-time`}
                         className="nav-text text-xs mt-2 opacity-60"
                       >
@@ -75,8 +75,8 @@ const NotificationPanel = () => {
                       </time>
                     </div>
                   </div>
-                  
-                  <button 
+
+                  <button
                     className="accessible-focus p-1 rounded hover:bg-muted transition-colors flex-shrink-0 ml-2"
                     aria-label={`Dispensar notificação ${notification.title}`}
                     onClick={() => {
@@ -91,9 +91,9 @@ const NotificationPanel = () => {
           </li>
         ))}
       </ul>
-      
+
       <div className="text-center">
-        <button 
+        <button
           className="accessible-focus nav-text text-xs sm:text-sm hover:text-primary transition-colors"
           onClick={() => {
             // Navigate to notifications page or expand all notifications
