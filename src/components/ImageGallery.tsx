@@ -5,7 +5,7 @@ import { Eye, Download, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
 const ImageGallery = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(0);
-  
+
   const images = [
     { src: '/src/assets/gallery/mountain-landscape.jpg', alt: 'Bela paisagem com montanhas e lago ao pôr do sol', category: 'nature' },
     { src: '/src/assets/gallery/professional-portrait.jpg', alt: 'Retrato de uma pessoa sorridente em trajes profissionais', category: 'people' },
@@ -21,8 +21,8 @@ const ImageGallery = () => {
     { value: 'abstract', label: 'Abstrato', count: images.filter(img => img.category === 'abstract').length }
   ];
 
-  const filteredImages = activeFilter === 'all' 
-    ? images 
+  const filteredImages = activeFilter === 'all'
+    ? images
     : images.filter(img => img.category === activeFilter);
 
   const handleImageAction = (action: string, imageIndex: number) => {
@@ -47,14 +47,14 @@ const ImageGallery = () => {
   return (
     <section className="stat-card p-4 sm:p-6 rounded-lg mb-6">
       <h2 className="text-base sm:text-lg font-bold nav-text mb-4">Galeria de Fotos</h2>
-      
+
       {/* Accessible category filter */}
       <div className="mb-4 sm:mb-6 p-3 sm:p-4 border border-border rounded-lg bg-muted/50">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="h-3 w-3 sm:h-4 sm:w-4 nav-text" aria-hidden="true" />
           <h3 className="text-xs sm:text-sm font-medium nav-text">Filtrar por Categoria</h3>
         </div>
-        
+
         <div role="tablist" aria-label="Categorias de fotos" className="flex gap-1 sm:gap-2 flex-wrap">
           {categories.map((category) => (
             <button
@@ -79,9 +79,9 @@ const ImageGallery = () => {
           ))}
         </div>
       </div>
-      
+
       {/* Accessible image grid */}
-      <div 
+      <div
         id="photo-grid"
         role="tabpanel"
         aria-label={`${filteredImages.length} photos in ${activeFilter} category`}
@@ -89,17 +89,17 @@ const ImageGallery = () => {
       >
         {filteredImages.map((image, index) => (
           <article key={index} className="relative group">
-            <img 
+            <img
               src={image.src}
               alt={image.alt}
-              className="w-full h-24 sm:h-32 object-cover rounded accessible-focus cursor-pointer hover:opacity-90 transition-opacity"
+              className="w-full h-32 sm:h-40 lg:h-48 xl:h-56 object-contain bg-muted rounded accessible-focus cursor-pointer hover:opacity-90 transition-opacity"
               onClick={() => handleImageAction('view', index)}
               onKeyDown={(e) => handleKeyDown(e, () => handleImageAction('view', index))}
               tabIndex={0}
               role="button"
               aria-describedby={`image-actions-${index}`}
             />
-            
+
             {/* Accessible overlay with proper contrast */}
             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity rounded flex items-center justify-center">
               <div className="flex gap-1 sm:gap-2">
@@ -125,7 +125,7 @@ const ImageGallery = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Screen reader description */}
             <div id={`image-actions-${index}`} className="sr-only">
               Clique para ver imagem completa, ou use os botões de ação para ver ou baixar
@@ -136,7 +136,7 @@ const ImageGallery = () => {
 
       {/* Accessible pagination */}
       <nav aria-label="Paginação da galeria de fotos" className="flex justify-between items-center">
-        <button 
+        <button
           onClick={handlePrevious}
           onKeyDown={(e) => handleKeyDown(e, handlePrevious)}
           disabled={currentPage === 0}
@@ -147,7 +147,7 @@ const ImageGallery = () => {
           <span className="hidden sm:inline">Anterior</span>
           <span className="sm:hidden">Ant</span>
         </button>
-        
+
         {/* Accessible pagination indicators */}
         <div className="flex items-center gap-1 sm:gap-2" role="tablist" aria-label="Indicadores de página">
           {[0, 1, 2].map((page) => (
@@ -163,8 +163,8 @@ const ImageGallery = () => {
             />
           ))}
         </div>
-        
-        <button 
+
+        <button
           onClick={handleNext}
           onKeyDown={(e) => handleKeyDown(e, handleNext)}
           disabled={currentPage === 2}
@@ -176,7 +176,7 @@ const ImageGallery = () => {
           <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
         </button>
       </nav>
-      
+
       {/* Status announcement for screen readers */}
       <div className="sr-only" role="status" aria-live="polite">
         Mostrando {filteredImages.length} fotos em {activeFilter === 'all' ? 'todas as categorias' : 'categoria ' + activeFilter}

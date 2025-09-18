@@ -1,50 +1,66 @@
 // Accessible sidebar with proper semantic structure and ARIA labels
 import { BarChart3, Users, Settings, Bell, FileText, Home } from 'lucide-react';
 
-const DashboardSidebar = () => {
+interface DashboardSidebarProps {
+  activeSection: string;
+  onNavClick: (section: string) => void;
+}
+
+const DashboardSidebar = ({ activeSection, onNavClick }: DashboardSidebarProps) => {
   const navItems = [
-    { icon: Home, label: 'Dashboard', href: '#dashboard', current: true },
-    { icon: BarChart3, label: 'Analytics', href: '#analytics', current: false },
-    { icon: Users, label: 'Users', href: '#users', current: false },
-    { icon: FileText, label: 'Content', href: '#content', current: false },
-    { icon: Bell, label: 'Notifications', href: '#notifications', current: false },
-    { icon: Settings, label: 'Settings', href: '#settings', current: false },
+    { icon: Home, label: 'Dashboard', section: 'dashboard' },
+    { icon: BarChart3, label: 'Analytics', section: 'analytics' },
+    { icon: Users, label: 'Users', section: 'users' },
+    { icon: FileText, label: 'Content', section: 'content' },
+    { icon: Bell, label: 'Notifications', section: 'notifications' },
+    { icon: Settings, label: 'Settings', section: 'settings' },
   ];
 
+  const handleKeyDown = (event: React.KeyboardEvent, section: string) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onNavClick(section);
+    }
+  };
+
   return (
-    <aside className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6" role="navigation" aria-label="Main navigation">
+    <aside className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6" role="navigation" aria-label="Navegação principal">
       <header className="mb-8">
         <h2 className="text-xl font-bold nav-text">AdminPanel</h2>
-        <p className="sr-only">Main navigation menu</p>
+        <p className="sr-only">Menu de navegação principal</p>
       </header>
-      
+
       <nav>
         <ul className="space-y-2" role="list">
           {navItems.map((item) => {
             const Icon = item.icon;
+            const isActive = activeSection === item.section;
             return (
               <li key={item.label}>
-                <a 
-                  href={item.href}
-                  className="nav-text p-3 rounded-lg hover:bg-primary/20 transition-colors accessible-focus flex items-center gap-3 w-full"
-                  aria-current={item.current ? 'page' : undefined}
-                  role="menuitem"
+                <button
+                  onClick={() => onNavClick(item.section)}
+                  onKeyDown={(e) => handleKeyDown(e, item.section)}
+                  className={`nav-text p-3 rounded-lg transition-colors accessible-focus flex items-center gap-3 w-full text-left ${
+                    isActive ? 'bg-primary/20' : 'hover:bg-primary/10'
+                  }`}
+                  aria-current={isActive ? 'page' : undefined}
+                  aria-label={`Navegar para ${item.label}`}
                 >
                   <Icon size={20} aria-hidden="true" />
                   <span>{item.label}</span>
-                </a>
+                </button>
               </li>
             );
           })}
         </ul>
       </nav>
-      
+
       <footer className="absolute bottom-6 left-6 right-6">
         <div className="stat-card p-4 rounded-lg" role="contentinfo" aria-label="User information">
           <div className="flex items-center gap-3">
-            <div 
-              className="w-10 h-10 rounded-full bg-primary/30" 
-              role="img" 
+            <div
+              className="w-10 h-10 rounded-full bg-primary/30"
+              role="img"
               aria-label="User avatar placeholder"
             ></div>
             <div>

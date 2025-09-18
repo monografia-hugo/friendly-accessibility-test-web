@@ -34,30 +34,40 @@ const SubtitleControls: React.FC<SubtitleControlsProps> = ({ videoRef, subtitleT
   };
 
   return (
-    <div className="flex items-center gap-4 p-2 bg-background/80 rounded">
+    <div className="flex items-center gap-4 p-2 bg-background/80 rounded" role="group" aria-label="Controles de legendas">
       <div className="flex items-center space-x-2">
         <Switch
           id="subtitles-toggle"
           checked={subtitlesEnabled}
           onCheckedChange={toggleSubtitles}
+          aria-describedby="subtitles-description"
         />
-        <Label htmlFor="subtitles-toggle">Subtitles</Label>
+        <Label htmlFor="subtitles-toggle" className="text-sm nav-text">Legendas</Label>
       </div>
-      
+
       {subtitlesEnabled && subtitleTracks.length > 0 && (
-        <Select value={selectedTrack} onValueChange={changeSubtitleTrack}>
-          <SelectTrigger className="w-32">
-            <SelectValue placeholder="Language" />
-          </SelectTrigger>
-          <SelectContent>
-            {subtitleTracks.map((track) => (
-              <SelectItem key={track.language} value={track.language}>
-                {track.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <div className="flex items-center gap-2">
+          <Label htmlFor="subtitle-language" className="text-sm nav-text sr-only">
+            Selecionar idioma das legendas
+          </Label>
+          <Select value={selectedTrack} onValueChange={changeSubtitleTrack}>
+            <SelectTrigger className="w-32" id="subtitle-language" aria-label="Selecionar idioma das legendas">
+              <SelectValue placeholder="Idioma" />
+            </SelectTrigger>
+            <SelectContent>
+              {subtitleTracks.map((track) => (
+                <SelectItem key={track.language} value={track.language}>
+                  {track.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       )}
+
+      <div id="subtitles-description" className="sr-only">
+        Ative ou desative as legendas do vídeo. Quando ativado, você pode selecionar o idioma das legendas.
+      </div>
     </div>
   );
 };
