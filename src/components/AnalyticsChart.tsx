@@ -30,12 +30,12 @@ const AnalyticsChart = () => {
   return (
     <div className="space-y-6">
       {/* Poor practice: No proper heading structure */}
-      <div className="text-xl font-semibold text-primary">Analytics Overview</div>
+      <div className="text-xl font-semibold text-primary">Visão Geral das Análises</div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Poor practice: Charts without accessibility features */}
         <div className="stat-card p-6 rounded-lg">
-          <div className="mb-4 nav-text font-medium">Monthly Revenue</div>
+          <div className="mb-4 nav-text font-medium">Receita Mensal</div>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={barData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -47,7 +47,7 @@ const AnalyticsChart = () => {
         </div>
 
         <div className="stat-card p-6 rounded-lg">
-          <div className="mb-4 nav-text font-medium">User Growth</div>
+          <div className="mb-4 nav-text font-medium">Crescimento de Usuários</div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={lineData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -60,7 +60,7 @@ const AnalyticsChart = () => {
         </div>
 
         <div className="stat-card p-6 rounded-lg lg:col-span-2">
-          <div className="mb-4 nav-text font-medium">Device Usage</div>
+          <div className="mb-4 nav-text font-medium">Uso por Dispositivo</div>
           <div className="flex justify-center">
             <ResponsiveContainer width={400} height={300}>
               <PieChart>

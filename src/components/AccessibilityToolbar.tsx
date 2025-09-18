@@ -151,7 +151,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
     } catch (error) {
       console.error('Text-to-speech error:', error);
       setIsPlaying(false);
-      alert('Error generating speech. Please check your API key and try again.');
+      alert('Erro ao gerar fala. Verifique sua chave da API e tente novamente.');
     }
   };
 
@@ -187,7 +187,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
         onClick={onToggle}
         className="fixed bottom-6 right-6 z-50 rounded-full w-14 h-14 shadow-lg"
         variant="default"
-        aria-label="Open accessibility toolbar"
+        aria-label="Abrir barra de ferramentas de acessibilidade"
       >
         <Accessibility className="w-6 h-6" />
       </Button>
@@ -201,13 +201,13 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Accessibility className="w-5 h-5" />
-          <h3 className="font-semibold">Accessibility Tools</h3>
+          <h3 className="font-semibold">Ferramentas de Acessibilidade</h3>
         </div>
         <Button
           variant="ghost"
           size="sm"
           onClick={onToggle}
-          aria-label="Close accessibility toolbar"
+          aria-label="Fechar barra de ferramentas de acessibilidade"
         >
           <X className="w-4 h-4" />
         </Button>
@@ -217,12 +217,12 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
       <div className="mb-4">
         <Label className="flex items-center gap-2 mb-2">
           <Volume2 className="w-4 h-4" />
-          Voice Reading
+          Leitura por Voz
         </Label>
         
         {!isSetup && (
           <p className="text-sm text-muted-foreground mb-2">
-            Setup required. Click play to enter API key.
+            Configuração necessária. Clique play para inserir chave da API.
           </p>
         )}
         
@@ -231,7 +231,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
             variant="outline"
             size="sm"
             onClick={handlePlayPause}
-            aria-label={isPlaying ? "Pause reading" : "Start reading selected text or page"}
+            aria-label={isPlaying ? "Pausar leitura" : "Começar leitura do texto selecionado ou página"}
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
           </Button>
@@ -241,7 +241,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
             size="sm"
             onClick={stopSpeaking}
             disabled={!isPlaying}
-            aria-label="Stop reading"
+            aria-label="Parar leitura"
           >
             <Square className="w-4 h-4" />
           </Button>
@@ -260,7 +260,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
         
         {currentText && (
           <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
-            Reading: {currentText.substring(0, 100)}...
+            Lendo: {currentText.substring(0, 100)}...
           </p>
         )}
       </div>
@@ -271,12 +271,12 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
       <div className="space-y-3">
         <Label className="flex items-center gap-2">
           <Eye className="w-4 h-4" />
-          Visual Settings
+          Configurações Visuais
         </Label>
         
         <div className="flex items-center justify-between">
           <Label htmlFor="high-contrast" className="text-sm">
-            High Contrast
+            Alto Contraste
           </Label>
           <Switch
             id="high-contrast"
@@ -287,7 +287,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
         
         <div className="flex items-center justify-between">
           <Label htmlFor="large-text" className="text-sm">
-            Large Text
+            Texto Grande
           </Label>
           <Switch
             id="large-text"
@@ -298,7 +298,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
         
         <div className="flex items-center justify-between">
           <Label htmlFor="reduce-motion" className="text-sm">
-            Reduce Motion
+            Reduzir Movimento
           </Label>
           <Switch
             id="reduce-motion"
@@ -309,7 +309,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
         
         <div className="flex items-center justify-between">
           <Label htmlFor="focus-indicator" className="text-sm">
-            Enhanced Focus
+            Foco Aprimorado
           </Label>
           <Switch
             id="focus-indicator"
@@ -325,12 +325,12 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
       <div>
         <Label className="flex items-center gap-2 mb-2">
           <Keyboard className="w-4 h-4" />
-          Quick Actions
+          Ações Rápidas
         </Label>
         <p className="text-xs text-muted-foreground">
-          • Select text and click play to read it aloud<br/>
-          • Use Tab to navigate, Enter/Space to activate<br/>
-          • Alt + A to toggle this toolbar
+          • Selecione texto e clique play para ler em voz alta<br/>
+          • Use Tab para navegar, Enter/Espaço para ativar<br/>
+          • Alt + A para alternar esta barra de ferramentas
         </p>
       </div>
     </Card>

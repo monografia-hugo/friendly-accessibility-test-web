@@ -5,20 +5,20 @@ import { useState } from 'react';
 const SettingsPanel = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: 'Admin',
-    lastName: 'User',
+    firstName: 'Administrador',
+    lastName: 'Usuário',
     email: 'admin@example.com',
     emailNotifications: true,
     smsNotifications: false,
     marketingEmails: true,
     theme: 'dark',
-    language: 'english'
+    language: 'portuguese'
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Settings saved:', formData);
-    alert('Settings saved successfully!');
+    console.log('Configurações salvas:', formData);
+    alert('Configurações salvas com sucesso!');
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -27,13 +27,13 @@ const SettingsPanel = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-primary">Settings</h1>
+      <h1 className="text-xl font-semibold text-primary">Configurações</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         
         {/* Account Information Section */}
         <fieldset className="stat-card p-6 rounded-lg">
-          <legend className="mb-4 text-nav-text font-medium">Account Information</legend>
+          <legend className="mb-4 text-nav-text font-medium">Informações da Conta</legend>
           <div className="space-y-4">
             
             {/* Name fields with proper labels */}
@@ -43,7 +43,7 @@ const SettingsPanel = () => {
                   htmlFor="settings-first-name" 
                   className="block text-sm font-medium nav-text mb-2"
                 >
-                  First Name
+                  Nome
                 </label>
                 <input 
                   type="text" 
@@ -61,7 +61,7 @@ const SettingsPanel = () => {
                   htmlFor="settings-last-name" 
                   className="block text-sm font-medium nav-text mb-2"
                 >
-                  Last Name
+                  Sobrenome
                 </label>
                 <input 
                   type="text" 
@@ -81,7 +81,7 @@ const SettingsPanel = () => {
                 htmlFor="settings-email" 
                 className="block text-sm font-medium nav-text mb-2"
               >
-                Email Address
+                Endereço de Email
               </label>
               <input 
                 type="email" 
@@ -100,14 +100,14 @@ const SettingsPanel = () => {
                 htmlFor="settings-password" 
                 className="block text-sm font-medium nav-text mb-2"
               >
-                New Password
+                Nova Senha
               </label>
               <div className="relative">
                 <input 
                   type={showPassword ? "text" : "password"} 
                   id="settings-password"
                   name="password"
-                  placeholder="Enter new password"
+                  placeholder="Digite a nova senha"
                   className="w-full bg-input border border-border rounded-lg px-3 py-2 pr-12 nav-text accessible-focus"
                   aria-describedby="password-toggle-desc"
                 />
@@ -115,7 +115,7 @@ const SettingsPanel = () => {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded accessible-focus hover:bg-muted/50 transition-colors"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                   aria-pressed={showPassword}
                   aria-describedby="password-toggle-desc"
                 >
@@ -126,7 +126,7 @@ const SettingsPanel = () => {
                 </button>
               </div>
               <p id="password-toggle-desc" className="sr-only">
-                Click the eye icon to {showPassword ? 'hide' : 'show'} your password
+                Clique no ícone do olho para {showPassword ? 'ocultar' : 'mostrar'} sua senha
               </p>
             </div>
           </div>
@@ -134,7 +134,7 @@ const SettingsPanel = () => {
         
         {/* Preferences Section */}
         <fieldset className="stat-card p-6 rounded-lg">
-          <legend className="mb-4 text-nav-text font-medium">Notification Preferences</legend>
+          <legend className="mb-4 text-nav-text font-medium">Preferências de Notificação</legend>
           <div className="space-y-4">
             
             {/* Accessible checkboxes with proper labels */}
@@ -152,7 +152,7 @@ const SettingsPanel = () => {
                   htmlFor="email-notifications"
                   className="ml-3 nav-text text-sm cursor-pointer"
                 >
-                  Email notifications for account activity
+                  Notificações por email para atividade da conta
                 </label>
               </div>
               
@@ -169,7 +169,7 @@ const SettingsPanel = () => {
                   htmlFor="sms-notifications"
                   className="ml-3 nav-text text-sm cursor-pointer"
                 >
-                  SMS notifications for urgent alerts
+                  Notificações SMS para alertas urgentes
                 </label>
               </div>
               
@@ -186,7 +186,7 @@ const SettingsPanel = () => {
                   htmlFor="marketing-emails"
                   className="ml-3 nav-text text-sm cursor-pointer"
                 >
-                  Marketing emails and promotional content
+                  Emails de marketing e conteúdo promocional
                 </label>
               </div>
             </div>
@@ -197,7 +197,7 @@ const SettingsPanel = () => {
                 htmlFor="theme-select" 
                 className="block text-sm font-medium nav-text mb-2"
               >
-                Theme Preference
+                Preferência de Tema
               </label>
               <select 
                 id="theme-select"
@@ -206,9 +206,9 @@ const SettingsPanel = () => {
                 onChange={(e) => handleInputChange('theme', e.target.value)}
                 className="w-full bg-input border border-border rounded-lg px-3 py-2 nav-text accessible-focus"
               >
-                <option value="dark">Dark Mode</option>
-                <option value="light">Light Mode</option>
-                <option value="auto">Auto (System Preference)</option>
+                <option value="dark">Modo Escuro</option>
+                <option value="light">Modo Claro</option>
+                <option value="auto">Automático (Preferência do Sistema)</option>
               </select>
             </div>
             
@@ -218,7 +218,7 @@ const SettingsPanel = () => {
                 htmlFor="language-select" 
                 className="block text-sm font-medium nav-text mb-2"
               >
-                Language
+                Idioma
               </label>
               <select 
                 id="language-select"
@@ -227,9 +227,10 @@ const SettingsPanel = () => {
                 onChange={(e) => handleInputChange('language', e.target.value)}
                 className="w-full bg-input border border-border rounded-lg px-3 py-2 nav-text accessible-focus"
               >
-                <option value="english">English</option>
-                <option value="spanish">Spanish (Español)</option>
-                <option value="french">French (Français)</option>
+                <option value="portuguese">Português (Brasil)</option>
+                <option value="english">Inglês</option>
+                <option value="spanish">Espanhol (Español)</option>
+                <option value="french">Francês (Français)</option>
               </select>
             </div>
           </div>
@@ -242,7 +243,7 @@ const SettingsPanel = () => {
             className="bg-primary text-primary-foreground px-6 py-2 rounded-lg accessible-focus hover:bg-primary/90 transition-colors text-sm font-medium flex items-center gap-2"
           >
             <Save className="h-4 w-4" aria-hidden="true" />
-            Save Changes
+            Salvar Alterações
           </button>
           
           <button 
@@ -250,14 +251,14 @@ const SettingsPanel = () => {
             onClick={() => window.location.reload()}
             className="bg-secondary text-secondary-foreground px-6 py-2 rounded-lg accessible-focus hover:bg-secondary/80 transition-colors text-sm font-medium"
           >
-            Reset to Default
+            Redefinir para Padrão
           </button>
         </div>
       </form>
       
       {/* Status message for screen readers */}
       <div className="sr-only" role="status" aria-live="polite">
-        Settings form is ready for input
+        Formulário de configurações pronto para entrada
       </div>
     </div>
   );
