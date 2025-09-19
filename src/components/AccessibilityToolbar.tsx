@@ -336,7 +336,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
         </div>
 
         {currentText && (
-          <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
+          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
             Lendo: {currentText.substring(0, 100)}...
           </p>
         )}
@@ -404,7 +404,7 @@ const AccessibilityToolbar: React.FC<AccessibilityToolbarProps> = ({
           <Keyboard className="w-4 h-4" />
           Ações Rápidas
         </Label>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           • Selecione texto específico ou clique play para ler a aba atual<br/>
           • Lê apenas o conteúdo da seção ativa do painel<br/>
           • Use Tab para navegar, Enter/Espaço para ativar<br/>

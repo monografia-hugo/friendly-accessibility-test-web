@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Switch } from './ui/switch';
 import { Label } from './ui/label';
@@ -10,8 +10,22 @@ interface SubtitleControlsProps {
 }
 
 const SubtitleControls: React.FC<SubtitleControlsProps> = ({ videoRef, subtitleTracks }) => {
-  const [subtitlesEnabled, setSubtitlesEnabled] = useState(false);
-  const [selectedTrack, setSelectedTrack] = useState('');
+  const [subtitlesEnabled, setSubtitlesEnabled] = useState(true); // Ativado por padrão
+  const [selectedTrack, setSelectedTrack] = useState(subtitleTracks.length > 0 ? subtitleTracks[0].language : '');
+
+  // Inicializar legendas quando o componente for montado
+  useEffect(() => {
+    if (videoRef.current && subtitleTracks.length > 0) {
+      const tracks = videoRef.current.textTracks;
+      for (let i = 0; i < tracks.length; i++) {
+        if (tracks[i].language === selectedTrack) {
+          tracks[i].mode = 'showing';
+        } else {
+          tracks[i].mode = 'disabled';
+        }
+      }
+    }
+  }, [videoRef, selectedTrack, subtitleTracks]);
 
   const toggleSubtitles = (enabled: boolean) => {
     setSubtitlesEnabled(enabled);
@@ -25,10 +39,14 @@ const SubtitleControls: React.FC<SubtitleControlsProps> = ({ videoRef, subtitleT
 
   const changeSubtitleTrack = (language: string) => {
     setSelectedTrack(language);
-    if (videoRef.current && subtitlesEnabled) {
+    if (videoRef.current) {
       const tracks = videoRef.current.textTracks;
       for (let i = 0; i < tracks.length; i++) {
-        tracks[i].mode = tracks[i].language === language ? 'showing' : 'disabled';
+        if (tracks[i].language === language && subtitlesEnabled) {
+          tracks[i].mode = 'showing';
+        } else {
+          tracks[i].mode = 'disabled';
+        }
       }
     }
   };

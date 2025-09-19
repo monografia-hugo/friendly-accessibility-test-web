@@ -1,9 +1,11 @@
 // Accessible settings panel with proper form structure and labels
 import { Save, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
+import { useTheme } from '@/hooks/useTheme';
 
 const SettingsPanel = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { theme, setTheme } = useTheme();
   const [formData, setFormData] = useState({
     firstName: 'Administrador',
     lastName: 'Usuário',
@@ -11,7 +13,6 @@ const SettingsPanel = () => {
     emailNotifications: true,
     smsNotifications: false,
     marketingEmails: true,
-    theme: 'dark',
     language: 'portuguese'
   });
 
@@ -27,13 +28,13 @@ const SettingsPanel = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-semibold text-primary">Configurações</h1>
+      <h2 className="text-xl font-semibold text-primary">Configurações</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
 
         {/* Account Information Section */}
         <fieldset className="stat-card p-6 rounded-lg">
-          <h5 className="mb-4 text-nav-text font-medium mt-[0.2rem] text-lg">Informações da Conta</h5>
+          <h3 className="mb-4 text-nav-text font-medium mt-[0.2rem] text-lg">Informações da Conta</h3>
           <div className="space-y-4">
 
             {/* Name fields with proper labels */}
@@ -134,7 +135,7 @@ const SettingsPanel = () => {
 
         {/* Preferences Section */}
         <fieldset className="stat-card p-6 rounded-lg">
-          <h5 className="mb-8 text-nav-text font-medium mt-[0.2rem] text-lg">Preferências de Notificação</h5>
+          <h3 className="mb-8 text-nav-text font-medium mt-[0.2rem] text-lg">Preferências de Notificação</h3>
           <div className="space-y-4">
 
             {/* Accessible checkboxes with proper labels */}
@@ -202,13 +203,13 @@ const SettingsPanel = () => {
               <select
                 id="theme-select"
                 name="theme"
-                value={formData.theme}
-                onChange={(e) => handleInputChange('theme', e.target.value)}
+                value={theme}
+                onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'system')}
                 className="w-full bg-input border border-border rounded-lg px-3 py-2 nav-text accessible-focus"
               >
                 <option value="dark">Modo Escuro</option>
                 <option value="light">Modo Claro</option>
-                <option value="auto">Automático (Preferência do Sistema)</option>
+                <option value="system">Automático (Preferência do Sistema)</option>
               </select>
             </div>
 

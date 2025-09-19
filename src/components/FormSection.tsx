@@ -35,19 +35,19 @@ const FormSection = () => {
   };
 
   return (
-    <section className="stat-card p-6 rounded-lg mb-6">
+    <section className="stat-card p-6 rounded-lg mb-6 mt-8">
       <h2 className="text-lg font-bold nav-text mb-4">Formulário de Contato</h2>
-      
+
       <form className="space-y-6" onSubmit={handleSubmit} noValidate>
         {/* Name field with proper label */}
         <div>
-          <label 
-            htmlFor="contact-name" 
+          <label
+            htmlFor="contact-name"
             className="block text-sm font-medium nav-text mb-2"
           >
             Nome Completo <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
-          <input 
+          <input
             type="text"
             id="contact-name"
             name="name"
@@ -67,13 +67,13 @@ const FormSection = () => {
 
         {/* Email field with proper validation */}
         <div>
-          <label 
-            htmlFor="contact-email" 
+          <label
+            htmlFor="contact-email"
             className="block text-sm font-medium nav-text mb-2"
           >
             Endereço de Email <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
-          <input 
+          <input
             type="email"
             id="contact-email"
             name="email"
@@ -93,13 +93,13 @@ const FormSection = () => {
 
         {/* Department select with proper label */}
         <div>
-          <label 
-            htmlFor="contact-department" 
+          <label
+            htmlFor="contact-department"
             className="block text-sm font-medium nav-text mb-2"
           >
             Departamento <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
-          <select 
+          <select
             id="contact-department"
             name="department"
             className={`w-full p-3 bg-input border rounded-lg nav-text accessible-focus ${
@@ -133,14 +133,14 @@ const FormSection = () => {
               { value: 'high', label: 'Alta - Problema urgente' }
             ].map((option) => (
               <div key={option.value} className="flex items-center">
-                <input 
-                  type="radio" 
-                  name="priority" 
-                  value={option.value} 
+                <input
+                  type="radio"
+                  name="priority"
+                  value={option.value}
                   id={`priority-${option.value}`}
                   className="accessible-focus"
                 />
-                <label 
+                <label
                   htmlFor={`priority-${option.value}`}
                   className="ml-3 text-sm nav-text cursor-pointer"
                 >
@@ -158,13 +158,13 @@ const FormSection = () => {
 
         {/* Message textarea with proper label */}
         <div>
-          <label 
-            htmlFor="contact-message" 
+          <label
+            htmlFor="contact-message"
             className="block text-sm font-medium nav-text mb-2"
           >
             Mensagem <span className="text-danger-low" aria-label="obrigatório">*</span>
           </label>
-          <textarea 
+          <textarea
             id="contact-message"
             name="message"
             rows={4}
@@ -175,7 +175,7 @@ const FormSection = () => {
             aria-describedby={formErrors.message ? 'message-error' : 'message-hint'}
             aria-invalid={!!formErrors.message}
           />
-          <p id="message-hint" className="mt-1 text-xs text-muted-foreground">
+          <p id="message-hint" className="mt-1 text-sm text-muted-foreground">
             Por favor descreva sua consulta em detalhes (mínimo 10 caracteres)
           </p>
           {formErrors.message && (
@@ -187,13 +187,13 @@ const FormSection = () => {
 
         {/* Newsletter checkbox with proper label association */}
         <div className="flex items-start">
-          <input 
-            type="checkbox" 
-            id="newsletter-subscription" 
+          <input
+            type="checkbox"
+            id="newsletter-subscription"
             name="newsletter"
             className="mt-1 accessible-focus"
           />
-          <label 
+          <label
             htmlFor="newsletter-subscription"
             className="ml-3 text-sm nav-text cursor-pointer"
           >
@@ -203,13 +203,13 @@ const FormSection = () => {
 
         {/* File upload with proper instructions */}
         <div>
-          <label 
-            htmlFor="contact-attachment" 
+          <label
+            htmlFor="contact-attachment"
             className="block text-sm font-medium nav-text mb-2"
           >
             Anexo (Opcional)
           </label>
-          <input 
+          <input
             type="file"
             id="contact-attachment"
             name="attachment"
@@ -217,7 +217,7 @@ const FormSection = () => {
             accept=".pdf,.doc,.docx,.txt"
             aria-describedby="file-instructions"
           />
-          <p id="file-instructions" className="mt-1 text-xs text-muted-foreground">
+          <p id="file-instructions" className="mt-1 text-sm text-muted-foreground">
             Formatos aceitos: PDF, DOC, DOCX, TXT (máx 5MB)
           </p>
         </div>
@@ -230,7 +230,7 @@ const FormSection = () => {
           </h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div 
+              <div
                 className="px-4 py-2 bg-background border border-border rounded font-mono text-lg tracking-widest nav-text"
                 aria-label={`Security code: ${securityCode.split('').join(' ')}`}
               >
@@ -246,13 +246,13 @@ const FormSection = () => {
               </button>
             </div>
             <div>
-              <label 
-                htmlFor="security-code" 
+              <label
+                htmlFor="security-code"
                 className="block text-sm font-medium nav-text mb-2"
               >
                 Digite o código acima <span className="text-danger-low" aria-label="obrigatório">*</span>
               </label>
-              <input 
+              <input
                 type="text"
                 id="security-code"
                 value={userSecurityInput}
@@ -265,7 +265,7 @@ const FormSection = () => {
                 aria-describedby={formErrors.security ? 'security-error' : 'security-hint'}
                 aria-invalid={!!formErrors.security}
               />
-              <p id="security-hint" className="mt-1 text-xs text-muted-foreground">
+              <p id="security-hint" className="mt-1 text-sm text-muted-foreground">
                 Isso nos ajuda a prevenir envios automatizados
               </p>
               {formErrors.security && (
@@ -278,7 +278,7 @@ const FormSection = () => {
         </div>
 
         {/* Submit button with proper contrast */}
-        <button 
+        <button
           type="submit"
           className="w-full py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 accessible-focus transition-colors font-medium"
         >

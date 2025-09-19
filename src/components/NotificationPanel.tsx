@@ -57,19 +57,19 @@ const NotificationPanel = () => {
                     <div className="flex-1 min-w-0">
                       <h3
                         id={`notification-${notification.id}-title`}
-                        className="nav-text font-medium text-xs sm:text-sm"
+                        className="nav-text font-medium text-sm sm:text-base"
                       >
                         {notification.title}
                       </h3>
                       <p
                         id={`notification-${notification.id}-message`}
-                        className="nav-text text-xs sm:text-sm mt-1 break-words"
+                        className="nav-text text-sm sm:text-base mt-1 break-words"
                       >
                         {notification.message}
                       </p>
                       <time
                         id={`notification-${notification.id}-time`}
-                        className="nav-text text-xs mt-2 opacity-60"
+                        className="nav-text text-sm mt-2 opacity-70"
                       >
                         {notification.time}
                       </time>
@@ -94,7 +94,7 @@ const NotificationPanel = () => {
 
       <div className="text-center">
         <button
-          className="accessible-focus nav-text text-xs sm:text-sm hover:text-primary transition-colors"
+          className="accessible-focus nav-text text-sm sm:text-base hover:text-primary transition-colors"
           onClick={() => {
             // Navigate to notifications page or expand all notifications
             console.log('Viewing all notifications');

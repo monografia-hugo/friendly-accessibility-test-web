@@ -52,7 +52,7 @@ const ImageGallery = () => {
       <div className="mb-4 sm:mb-6 p-3 sm:p-4 border border-border rounded-lg bg-muted/50">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="h-3 w-3 sm:h-4 sm:w-4 nav-text" aria-hidden="true" />
-          <h3 className="text-xs sm:text-sm font-medium nav-text">Filtrar por Categoria</h3>
+          <h3 className="text-sm sm:text-base font-medium nav-text">Filtrar por Categoria</h3>
         </div>
 
         <div role="tablist" aria-label="Categorias de fotos" className="flex gap-1 sm:gap-2 flex-wrap">
@@ -64,7 +64,7 @@ const ImageGallery = () => {
               aria-controls="photo-grid"
               onClick={() => setActiveFilter(category.value)}
               onKeyDown={(e) => handleKeyDown(e, () => setActiveFilter(category.value))}
-              className={`px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-medium accessible-focus transition-colors ${
+              className={`px-2 sm:px-4 py-1 sm:py-2 rounded-lg text-sm sm:text-base font-medium accessible-focus transition-colors ${
                 activeFilter === category.value
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
@@ -72,7 +72,7 @@ const ImageGallery = () => {
             >
               <span className="hidden sm:inline">{category.label}</span>
               <span className="sm:hidden">{category.label.split(' ')[0]}</span>
-              <span className="ml-1 sm:ml-2 text-xs opacity-75">
+              <span className="ml-1 sm:ml-2 text-sm opacity-80">
                 ({category.count})
               </span>
             </button>
@@ -140,7 +140,7 @@ const ImageGallery = () => {
           onClick={handlePrevious}
           onKeyDown={(e) => handleKeyDown(e, handlePrevious)}
           disabled={currentPage === 0}
-          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 accessible-focus transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm"
+          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 accessible-focus transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
           aria-label="Go to previous page"
         >
           <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
@@ -168,7 +168,7 @@ const ImageGallery = () => {
           onClick={handleNext}
           onKeyDown={(e) => handleKeyDown(e, handleNext)}
           disabled={currentPage === 2}
-          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 accessible-focus transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm"
+          className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1 sm:py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 accessible-focus transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
           aria-label="Go to next page"
         >
           <span className="hidden sm:inline">Próxima</span>

@@ -11,6 +11,11 @@ import { useAccessibility } from '@/hooks/useAccessibility';
 import UserManagement from '@/components/UserManagement';
 import NotificationPanel from '@/components/NotificationPanel';
 import SettingsPanel from '@/components/SettingsPanel';
+// import AccessibilityTests from '@/components/AccessibilityTests';
+import AccessibleForms from '@/components/AccessibleForms';
+import KeyboardNavigation from '@/components/KeyboardNavigation';
+import AccessibleMedia from '@/components/AccessibleMedia';
+import ContrastTests from '@/components/ContrastTests';
 import { useState } from 'react';
 import dashboardHero from '@/assets/dashboard-hero.jpg';
 
@@ -43,6 +48,16 @@ const Dashboard = () => {
         return <NotificationPanel />;
       case 'settings':
         return <SettingsPanel />;
+      // case 'accessibility-tests':
+      //   return <AccessibilityTests />;
+      case 'accessible-forms':
+        return <AccessibleForms />;
+      case 'keyboard-navigation':
+        return <KeyboardNavigation />;
+      case 'accessible-media':
+        return <AccessibleMedia />;
+      case 'contrast-tests':
+        return <ContrastTests />;
       default:
         return (
           <>
@@ -100,12 +115,18 @@ const Dashboard = () => {
     }
   };
 
+
   return (
     <div className="min-h-screen dashboard-bg">
-      {/* Skip link for keyboard users */}
-      <a href="#main-content" className="skip-link">
-        Pular para o conteúdo principal
-      </a>
+      {/* Skip links for keyboard users */}
+      <div className="sr-only focus-within:not-sr-only">
+        <a href="#main-content" className="skip-link">
+          Pular para o conteúdo principal
+        </a>
+        <a href="#navigation" className="skip-link">
+          Pular para a navegação
+        </a>
+      </div>
 
       {/* Mobile overlay */}
       {isSidebarOpen && (
@@ -120,6 +141,7 @@ const Dashboard = () => {
       <DashboardSidebar
         activeSection={activeSection}
         onNavClick={handleNavClick}
+        id="navigation"
       />
 
       {/* Main content area with proper landmarks */}
@@ -141,18 +163,10 @@ const Dashboard = () => {
       <div className="fixed bottom-4 right-4 stat-card p-3 sm:p-4 rounded-lg z-30" role="status" aria-live="polite">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-success-low rounded-full" aria-hidden="true"></div>
-          <span className="nav-text text-xs sm:text-sm">Sistema Online</span>
+          <span className="nav-text text-sm sm:text-base font-medium">Sistema Online</span>
         </div>
       </div>
 
-      {/* Accessible floating action button - responsive positioning */}
-      <button
-        className="fixed bottom-4 left-4 lg:left-80 gradient-primary p-3 rounded-full accessible-focus transition-transform hover:scale-105 z-30"
-        aria-label="Adicionar novo item"
-        title="Adicionar novo item"
-      >
-        <span className="w-6 h-6 text-white text-center block" aria-hidden="true">+</span>
-      </button>
 
       {/* Accessibility Toolbar */}
       <AccessibilityToolbar

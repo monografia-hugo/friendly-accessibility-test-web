@@ -1,7 +1,8 @@
 // Accessible dashboard header with proper semantic structure
-import { Bell, Search, Menu, X } from 'lucide-react';
+import { Bell, Search, Menu, X, Sun, Moon } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import NotificationPanel from '@/components/NotificationPanel';
+import { useTheme } from '@/hooks/useTheme';
 import userAvatar from '@/assets/user-avatar.png';
 
 interface DashboardHeaderProps {
@@ -11,6 +12,12 @@ interface DashboardHeaderProps {
 }
 
 const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSidebar }: DashboardHeaderProps) => {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
     <header className="flex items-center justify-between p-4 sm:p-6 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative z-50">
       <div className="flex items-center gap-2 sm:gap-4">
@@ -23,8 +30,8 @@ const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSi
         </button>
 
         <div>
-          <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary">Painel de Controle</h1>
-          <p className="nav-text text-xs sm:text-sm hidden sm:block">Bem-vindo de volta, Admin</p>
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary">Painel de Controle</h2>
+          <p className="nav-text text-sm sm:text-base hidden sm:block">Bem-vindo de volta, Admin</p>
         </div>
       </div>
 
@@ -59,7 +66,7 @@ const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSi
             )}
             {!isNotificationOpen && (
               <span
-                className="absolute -top-1 -right-1 bg-danger-low text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                className="absolute -top-1 -right-1 bg-danger-low text-white text-sm rounded-full w-6 h-6 flex items-center justify-center"
                 aria-hidden="true"
               >
                 3
@@ -80,17 +87,31 @@ const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSi
           )}
         </div>
 
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className="accessible-focus p-2 rounded hover:bg-muted transition-colors"
+          aria-label={`Alternar para modo ${resolvedTheme === 'dark' ? 'claro' : 'escuro'}`}
+          title={`Alternar para modo ${resolvedTheme === 'dark' ? 'claro' : 'escuro'}`}
+        >
+          {resolvedTheme === 'dark' ? (
+            <Sun className="h-5 w-5 nav-text" aria-hidden="true" />
+          ) : (
+            <Moon className="h-5 w-5 nav-text" aria-hidden="true" />
+          )}
+        </button>
+
         <button className="flex items-center gap-1 sm:gap-2 accessible-focus p-1 sm:p-2 rounded hover:bg-muted transition-colors">
           <Avatar className="h-6 w-6 sm:h-8 sm:w-8">
             <AvatarImage
               src={userAvatar}
               alt="Foto do perfil do usuário administrador"
             />
-            <AvatarFallback className="bg-primary text-primary-foreground text-xs sm:text-sm font-medium">
+            <AvatarFallback className="bg-primary text-primary-foreground text-sm sm:text-base font-medium">
               AU
             </AvatarFallback>
           </Avatar>
-          <span className="hidden sm:block nav-text text-xs sm:text-sm">Usuário Admin</span>
+          <span className="hidden sm:block nav-text text-sm sm:text-base">Usuário Admin</span>
           <span className="sr-only">Abrir menu do usuário</span>
         </button>
       </div>

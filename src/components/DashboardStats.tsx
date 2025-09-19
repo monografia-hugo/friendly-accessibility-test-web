@@ -46,9 +46,9 @@ const DashboardStats = () => {
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         const isPositive = stat.changeType === 'increase';
-        
+
         return (
-          <article 
+          <article
             key={index}
             className="stat-card p-6 rounded-lg"
             aria-labelledby={`stat-title-${index}`}
@@ -56,7 +56,7 @@ const DashboardStats = () => {
           >
             <div className="flex items-center justify-between">
               <div className="flex-1">
-                <h3 
+                <h3
                   id={`stat-title-${index}`}
                   className="nav-text text-sm font-medium"
                 >
@@ -65,9 +65,9 @@ const DashboardStats = () => {
                 <p className="text-2xl font-bold text-primary mt-1" aria-label={stat.ariaLabel}>
                   {stat.value}
                 </p>
-                <div 
+                <div
                   id={`stat-description-${index}`}
-                  className={`text-xs mt-1 flex items-center gap-1 ${
+                  className={`text-sm mt-1 flex items-center gap-1 ${
                     isPositive ? 'text-success-low' : 'text-danger-low'
                   }`}
                   aria-label={`Mudança: ${stat.change} ${stat.period}`}
@@ -81,8 +81,8 @@ const DashboardStats = () => {
                   </span>
                 </div>
               </div>
-              <Icon 
-                className="h-8 w-8 text-chart-secondary flex-shrink-0" 
+              <Icon
+                className="h-8 w-8 text-chart-secondary flex-shrink-0"
                 aria-hidden="true"
               />
             </div>
