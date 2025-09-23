@@ -53,6 +53,65 @@ const ContrastTests = () => {
     setTestResults(prev => ({ ...prev, [testId]: result }));
   };
 
+  const getResultsText = () => {
+    const resultsSummary = contrastTests.map(test => {
+      const result = testResults[test.id];
+      const status = result === true ? 'Passou' : result === false ? 'Falhou' : 'Não testado';
+      return `${test.title}: ${status}`;
+    }).join('\n');
+
+    const totalPassed = Object.values(testResults).filter(r => r === true).length;
+    const totalFailed = Object.values(testResults).filter(r => r === false).length;
+    const totalTests = contrastTests.length;
+    const totalCompleted = totalPassed + totalFailed;
+
+    return `Resultados dos Testes de Contraste - ${new Date().toLocaleString()}
+
+Resumo:
+- Total de testes: ${totalTests}
+- Testes completados: ${totalCompleted}
+- Testes que passaram: ${totalPassed}
+- Testes que falharam: ${totalFailed}
+
+Detalhes por teste:
+${resultsSummary}
+
+---
+Enviado automaticamente pelo sistema de testes de contraste.`;
+  };
+
+  const sendResultsByEmail = () => {
+    const emailBody = getResultsText();
+    const emailSubject = `Resultados dos Testes de Contraste - ${new Date().toLocaleDateString()}`;
+    const emailUrl = `mailto:hugorc10@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+    window.open(emailUrl);
+  };
+
+  const copyResultsToClipboard = async () => {
+    try {
+      const resultsText = getResultsText();
+      await navigator.clipboard.writeText(resultsText);
+      alert('Resultados copiados para a área de transferência! Cole no seu email ou documento.');
+    } catch (err) {
+      console.error('Erro ao copiar para área de transferência:', err);
+      alert('Erro ao copiar. Tente novamente.');
+    }
+  };
+
+  const downloadResults = () => {
+    const resultsText = getResultsText();
+    const blob = new Blob([resultsText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `resultados-testes-contraste-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'pass':
@@ -75,7 +134,7 @@ const ContrastTests = () => {
     }
   };
 
-  const renderTestExamples = (test: any) => {
+  const renderTestExamples = (test: { id: string; title: string; description: string; examples: Array<{ text: string; contrast: string; status: string }> }) => {
     switch (test.id) {
       case 'normal-text':
         return (
@@ -236,14 +295,24 @@ const ContrastTests = () => {
 
             <div className="flex gap-2">
               <button
-                className="px-3 py-1 bg-green-600 text-white text-sm rounded accessible-focus"
-                onClick={() => handleTestResult(test.id, true)}
+                className={`px-3 py-1 text-white text-sm rounded accessible-focus border-2 ${
+                  testResults[test.id] === true
+                    ? 'bg-green-800 text-gray-600 border-green-900 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700 border-transparent'
+                }`}
+                onClick={() => testResults[test.id] === true ? null : handleTestResult(test.id, true)}
+                disabled={testResults[test.id] === true}
               >
                 Passou
               </button>
               <button
-                className="px-3 py-1 bg-red-600 text-white text-sm rounded accessible-focus"
-                onClick={() => handleTestResult(test.id, false)}
+                className={`px-3 py-1 text-white text-sm rounded accessible-focus border-2 ${
+                  testResults[test.id] === false
+                    ? 'bg-red-800 text-gray-600 border-red-900 cursor-not-allowed'
+                    : 'bg-red-600 hover:bg-red-700 border-transparent'
+                }`}
+                onClick={() => testResults[test.id] === false ? null : handleTestResult(test.id, false)}
+                disabled={testResults[test.id] === false}
               >
                 Falhou
               </button>
@@ -254,8 +323,8 @@ const ContrastTests = () => {
 
       {/* Resultados dos testes */}
       <div className="mt-8 p-4 bg-muted rounded-lg">
-        <h3 className="text-base font-semibold nav-text mb-2">Resultados dos Testes</h3>
-        <div className="grid grid-cols-2 gap-4 text-sm">
+        <h3 className="text-base font-semibold nav-text mb-4">Resultados dos Testes</h3>
+        <div className="grid grid-cols-2 gap-4 text-sm mb-4">
           <div>
             <span className="font-medium">Testes Passaram:</span>
             <span className="ml-2 text-green-600">
@@ -268,6 +337,26 @@ const ContrastTests = () => {
               {Object.values(testResults).filter(r => r === false).length}
             </span>
           </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={copyResultsToClipboard}
+            className="px-3 py-2 bg-green-600 text-white text-sm rounded accessible-focus hover:bg-green-700 border-2 border-transparent hover:border-green-800 transition-colors"
+          >
+            📋 Copiar Resultados
+          </button>
+          <button
+            onClick={downloadResults}
+            className="px-3 py-2 bg-purple-600 text-white text-sm rounded accessible-focus hover:bg-purple-700 border-2 border-transparent hover:border-purple-800 transition-colors"
+          >
+            💾 Baixar Arquivo
+          </button>
+          <button
+            onClick={sendResultsByEmail}
+            className="px-3 py-2 bg-blue-600 text-white text-sm rounded accessible-focus hover:bg-blue-700 border-2 border-transparent hover:border-blue-800 transition-colors"
+          >
+            📧 Enviar por Email
+          </button>
         </div>
       </div>
 
