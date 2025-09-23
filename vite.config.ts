@@ -7,7 +7,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   server: {
     port: 8080,
-    base: "/monografia-hugo.github.io",
+    base: "/friendly-accessibility-test-web",
     fs: {
       strict: false,
     },
