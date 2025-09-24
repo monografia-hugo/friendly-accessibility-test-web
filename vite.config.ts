@@ -4,9 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/friendly-accessibility-test-web",
   server: {
-    port: 8080,
     fs: {
       strict: false,
     },
@@ -16,6 +14,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [react()],
+  base: "/friendly-accessibility-test-web/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
