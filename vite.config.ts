@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [react()],
-  base: "/",
+  base: "/intentionally-unfriendly-web/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
