@@ -1,16 +1,20 @@
 // Accessible image gallery with proper semantic structure and keyboard navigation
 import React, { useState } from 'react';
 import { Eye, Download, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import mountainLandscape from '@/assets/gallery/mountain-landscape.jpg';
+import professionalPortrait from '@/assets/gallery/professional-portrait.jpg';
+import modernBuilding from '@/assets/gallery/modern-building.jpg';
+import abstractPattern from '@/assets/gallery/abstract-pattern.jpg';
 
 const ImageGallery = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(0);
 
   const images = [
-    { src: '/src/assets/gallery/mountain-landscape.jpg', alt: 'Bela paisagem com montanhas e lago ao pôr do sol', category: 'nature' },
-    { src: '/src/assets/gallery/professional-portrait.jpg', alt: 'Retrato de uma pessoa sorridente em trajes profissionais', category: 'people' },
-    { src: '/src/assets/gallery/modern-building.jpg', alt: 'Arquitetura de prédio moderno com fachada de vidro', category: 'architecture' },
-    { src: '/src/assets/gallery/abstract-pattern.jpg', alt: 'Padrão geométrico abstrato em azul e branco', category: 'abstract' }
+    { src: mountainLandscape, alt: 'Bela paisagem com montanhas e lago ao pôr do sol', category: 'nature' },
+    { src: professionalPortrait, alt: 'Retrato de uma pessoa sorridente em trajes profissionais', category: 'people' },
+    { src: modernBuilding, alt: 'Arquitetura de prédio moderno com fachada de vidro', category: 'architecture' },
+    { src: abstractPattern, alt: 'Padrão geométrico abstrato em azul e branco', category: 'abstract' }
   ];
 
   const categories = [
