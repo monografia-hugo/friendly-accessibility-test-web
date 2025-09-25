@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   plugins: [react()],
-  base: "/friendly-accessibility-test-web/",
+  base: "/friendly-accessibility-test-web",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
