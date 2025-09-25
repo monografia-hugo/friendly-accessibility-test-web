@@ -19,7 +19,7 @@ const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSi
   };
 
   return (
-    <header className="flex items-center justify-between p-4 sm:p-6 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative z-50">
+    <header className="flex items-center justify-between p-3 sm:p-4 lg:p-6 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative z-50 min-h-[60px] sm:min-h-[70px]">
       <div className="flex items-center gap-2 sm:gap-4">
         <button
           className="lg:hidden accessible-focus p-2 rounded hover:bg-muted transition-colors"
@@ -29,13 +29,13 @@ const DashboardHeader = ({ isNotificationOpen, onToggleNotifications, onToggleSi
           <Menu className="h-5 w-5 sm:h-6 sm:w-6 nav-text" aria-hidden="true" />
         </button>
 
-        <div>
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-primary">Painel de Controle</h2>
-          <p className="nav-text text-sm sm:text-base hidden sm:block">Bem-vindo de volta, Admin</p>
+        <div className="min-w-0 flex-1 mr-4">
+          <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary truncate">Painel de Controle</h2>
+          <p className="nav-text text-xs sm:text-sm hidden sm:block opacity-80">Bem-vindo de volta, Admin</p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center gap-1 sm:gap-2 lg:gap-4 flex-shrink-0">
         <form className="hidden sm:flex items-center bg-input rounded-lg px-2 sm:px-3 py-1 sm:py-2" role="search">
           <label htmlFor="search-input" className="sr-only">Pesquisar no painel</label>
           <Search className="h-3 w-3 sm:h-4 sm:w-4 nav-text mr-1 sm:mr-2" aria-hidden="true" />

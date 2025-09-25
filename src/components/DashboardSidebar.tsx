@@ -30,13 +30,13 @@ const DashboardSidebar = ({ activeSection, onNavClick, id }: DashboardSidebarPro
   };
 
   return (
-    <aside id={id} className="sidebar-bg w-64 h-screen fixed left-0 top-0 p-6" role="navigation" aria-label="Navegação principal">
-      <header className="mb-8">
-        <h2 className="text-xl font-bold nav-text">AdminPanel</h2>
+    <aside id={id} className="sidebar-bg w-64 h-screen p-4 sm:p-6 flex flex-col" role="navigation" aria-label="Navegação principal">
+      <header className="mb-6 sm:mb-8 flex-shrink-0">
+        <h2 className="text-lg sm:text-xl font-bold nav-text">AdminPanel</h2>
         <p className="sr-only">Menu de navegação principal</p>
       </header>
 
-      <nav>
+      <nav className="flex-1 overflow-y-auto">
         <ul className="space-y-2" role="list">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -46,14 +46,14 @@ const DashboardSidebar = ({ activeSection, onNavClick, id }: DashboardSidebarPro
                 <button
                   onClick={() => onNavClick(item.section)}
                   onKeyDown={(e) => handleKeyDown(e, item.section)}
-                  className={`nav-text p-3 rounded-lg transition-colors accessible-focus flex items-center gap-3 w-full text-left ${
+                  className={`nav-text p-2 sm:p-3 rounded-lg transition-colors accessible-focus flex items-center gap-2 sm:gap-3 w-full text-left text-sm sm:text-base ${
                     isActive ? 'bg-primary/20' : 'hover:bg-primary/10'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
                   aria-label={`Navegar para ${item.label}`}
                 >
-                  <Icon size={20} aria-hidden="true" />
-                  <span>{item.label}</span>
+                  <Icon size={18} className="sm:w-5 sm:h-5 flex-shrink-0" aria-hidden="true" />
+                  <span className="truncate">{item.label}</span>
                 </button>
               </li>
             );
@@ -61,21 +61,21 @@ const DashboardSidebar = ({ activeSection, onNavClick, id }: DashboardSidebarPro
         </ul>
       </nav>
 
-      <footer className="absolute bottom-6 left-6 right-6">
-        <div className="stat-card p-4 rounded-lg" role="contentinfo" aria-label="User information">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10">
+      <footer className="flex-shrink-0 mt-4 p-2 sm:p-0">
+        <div className="stat-card p-3 sm:p-4 rounded-lg" role="contentinfo" aria-label="User information">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Avatar className="h-8 w-8 sm:h-10 sm:w-10 flex-shrink-0">
               <AvatarImage
                 src="/placeholder.svg"
                 alt="Foto de perfil do usuário Admin User"
               />
-              <AvatarFallback className="bg-primary/30 text-primary font-semibold text-sm">
+              <AvatarFallback className="bg-primary/30 text-primary font-semibold text-xs sm:text-sm">
                 AU
               </AvatarFallback>
             </Avatar>
-            <div>
-              <div className="nav-text text-sm font-medium">Usuário Admin</div>
-              <div className="nav-text text-xs opacity-80">admin@example.com</div>
+            <div className="min-w-0 flex-1">
+              <div className="nav-text text-xs sm:text-sm font-medium truncate">Usuário Admin</div>
+              <div className="nav-text text-xs opacity-80 truncate hidden sm:block">admin@example.com</div>
             </div>
           </div>
         </div>

@@ -42,7 +42,7 @@ const DashboardStats = () => {
   ];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" aria-label="Principais métricas de desempenho">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8 px-2 sm:px-0" aria-label="Principais métricas de desempenho">
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         const isPositive = stat.changeType === 'increase';
@@ -50,7 +50,7 @@ const DashboardStats = () => {
         return (
           <article
             key={index}
-            className="stat-card p-6 rounded-lg"
+            className="stat-card p-4 sm:p-5 lg:p-6 rounded-lg shadow-sm"
             aria-labelledby={`stat-title-${index}`}
             aria-describedby={`stat-description-${index}`}
           >
@@ -62,7 +62,7 @@ const DashboardStats = () => {
                 >
                   {stat.title}
                 </h3>
-                <p className="text-2xl font-bold text-primary mt-1" aria-label={stat.ariaLabel}>
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-primary mt-1" aria-label={stat.ariaLabel}>
                   {stat.value}
                 </p>
                 <div
@@ -82,7 +82,7 @@ const DashboardStats = () => {
                 </div>
               </div>
               <Icon
-                className="h-8 w-8 text-chart-secondary flex-shrink-0"
+                className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 text-chart-secondary flex-shrink-0"
                 aria-hidden="true"
               />
             </div>
