@@ -67,20 +67,6 @@ const VideoSection = () => {
           <div id="video-1-description" className="sr-only">
             Vídeo de treinamento com legendas em português disponíveis
           </div>
-          {/* Accessible favorite button */}
-          {/* <button
-            className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded accessible-focus transition-colors"
-            onClick={() => console.log('Favorited')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                console.log('Favorited');
-              }
-            }}
-            aria-label="Adicionar aos favoritos"
-          >
-            <span aria-hidden="true">❤️</span>
-          </button> */}
           <div className="mt-2">
             <SubtitleControls videoRef={video1Ref} subtitleTracks={subtitleTracks} />
           </div>

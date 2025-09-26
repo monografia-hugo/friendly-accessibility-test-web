@@ -18,6 +18,7 @@ import AccessibleMedia from '@/components/AccessibleMedia';
 import ContrastTests from '@/components/ContrastTests';
 import { useState } from 'react';
 import dashboardHero from '@/assets/dashboard-hero.jpg';
+import TextSection from '@/components/TextSection';
 
 const Dashboard = () => {
   // Accessible state management with proper section handling
@@ -80,9 +81,10 @@ const Dashboard = () => {
             </section>
 
             <DashboardStats />
+            <TextSection />
+            {/* <AnalyticsChart /> */}
             <VideoSection />
             <ImageGallery />
-            <AnalyticsChart />
             <FormSection />
           </>
         );
