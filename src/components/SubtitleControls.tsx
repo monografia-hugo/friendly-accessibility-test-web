@@ -60,7 +60,7 @@ const SubtitleControls: React.FC<SubtitleControlsProps> = ({ videoRef, subtitleT
           onCheckedChange={toggleSubtitles}
           aria-describedby="subtitles-description"
         />
-        <Label htmlFor="subtitles-toggle" className="text-sm nav-text">Legendas</Label>
+        <Label htmlFor="subtitles-toggle" className="text-sm nav-text">Áudio Descrição</Label>
       </div>
 
       {subtitlesEnabled && subtitleTracks.length > 0 && (

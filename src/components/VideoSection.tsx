@@ -5,6 +5,7 @@ import firstVideo from '../assets/videos/videoplayback1.mp4';
 import secondVideo from '../assets/videos/videoplayback2.mp4';
 import firstVideoVtt from '../assets/subtitles/videoplayback1.vtt';
 import secondVideoVtt from '../assets/subtitles/videoplayback2.vtt';
+import firstVideoPoster from '../assets/posters/3minutos.png';
 
 const VideoSection = () => {
   const video1Ref = useRef<HTMLVideoElement>(null);
@@ -51,7 +52,7 @@ const VideoSection = () => {
             className="w-full bg-black rounded object-contain"
             style={{ maxHeight: '300px' }}
             controls
-            poster="/placeholder.svg"
+            poster={firstVideoPoster}
             aria-describedby="video-1-description"
           >
             <source src={firstVideo} type="video/mp4" />
