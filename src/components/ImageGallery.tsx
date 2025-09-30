@@ -6,11 +6,13 @@ import professionalPortrait from '@/assets/gallery/professional-portrait.jpg';
 import modernBuilding from '@/assets/gallery/modern-building.jpg';
 import abstractPattern from '@/assets/gallery/abstract-pattern.jpg';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 
 const ImageGallery = () => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
   const images = [
     { src: mountainLandscape, alt: 'Bela paisagem com montanhas e lago ao pôr do sol', category: 'nature' },
@@ -50,7 +52,11 @@ const ImageGallery = () => {
   }, [activeFilter, carouselApi]);
 
   const handleImageAction = (action: string, imageIndex: number) => {
-    console.log(`${action} action for image ${imageIndex + 1}`);
+    if (action === 'view') {
+      setSelectedImage(filteredImages[imageIndex]);
+    } else {
+      console.log(`${action} action for image ${imageIndex + 1}`);
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent, callback: () => void) => {
@@ -179,6 +185,18 @@ const ImageGallery = () => {
       <div className="sr-only" role="status" aria-live="polite">
         Mostrando slide {currentIndex + 1} de {filteredImages.length} em {activeFilter === 'all' ? 'todas as categorias' : 'categoria ' + activeFilter}
       </div>
+
+      {/* Image modal */}
+      <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+        <DialogContent className="max-w-4xl w-[95vw]">
+          <DialogTitle className="sr-only">{selectedImage?.alt}</DialogTitle>
+          <img
+            src={selectedImage?.src}
+            alt={selectedImage?.alt}
+            className="w-full h-auto max-h-[80vh] object-contain rounded"
+          />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
