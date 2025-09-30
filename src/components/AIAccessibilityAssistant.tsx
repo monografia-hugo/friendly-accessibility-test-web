@@ -48,14 +48,14 @@ const AIAccessibilityAssistant = () => {
       setAnalysis(data.result);
       
       toast({
-        title: action === 'analyze' ? 'Analysis complete' : 'Suggestions ready',
-        description: 'AI has finished analyzing your page',
+        title: action === 'analyze' ? 'Análise concluída' : 'Sugestões prontas',
+        description: 'A IA terminou de analisar sua página',
       });
     } catch (error) {
       console.error('Error analyzing accessibility:', error);
       toast({
-        title: 'Analysis failed',
-        description: error instanceof Error ? error.message : 'Failed to analyze accessibility',
+        title: 'Análise falhou',
+        description: error instanceof Error ? error.message : 'Falha ao analisar acessibilidade',
         variant: 'destructive',
       });
     } finally {
@@ -66,8 +66,8 @@ const AIAccessibilityAssistant = () => {
   const askQuestion = async () => {
     if (!question.trim()) {
       toast({
-        title: 'No question',
-        description: 'Please enter a question about accessibility',
+        title: 'Nenhuma pergunta',
+        description: 'Por favor, insira uma pergunta sobre acessibilidade',
         variant: 'destructive',
       });
       return;
@@ -91,8 +91,8 @@ const AIAccessibilityAssistant = () => {
     } catch (error) {
       console.error('Error asking question:', error);
       toast({
-        title: 'Failed to get answer',
-        description: error instanceof Error ? error.message : 'Failed to process question',
+        title: 'Falha ao obter resposta',
+        description: error instanceof Error ? error.message : 'Falha ao processar pergunta',
         variant: 'destructive',
       });
     } finally {
@@ -105,10 +105,10 @@ const AIAccessibilityAssistant = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary" />
-          AI Accessibility Assistant
+          Assistente de Acessibilidade com IA
         </CardTitle>
         <CardDescription>
-          Get instant AI-powered accessibility analysis and recommendations
+          Obtenha análise e recomendações de acessibilidade instantâneas com IA
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -116,22 +116,22 @@ const AIAccessibilityAssistant = () => {
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="analyze">
               <Eye className="h-4 w-4 mr-2" />
-              Analyze
+              Analisar
             </TabsTrigger>
             <TabsTrigger value="suggest">
               <Lightbulb className="h-4 w-4 mr-2" />
-              Suggestions
+              Sugestões
             </TabsTrigger>
             <TabsTrigger value="chat">
               <MessageSquare className="h-4 w-4 mr-2" />
-              Ask AI
+              Perguntar à IA
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="analyze" className="space-y-4">
             <div className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                AI will analyze the current page for WCAG compliance and accessibility issues.
+                A IA analisará a página atual quanto à conformidade WCAG e problemas de acessibilidade.
               </p>
               <Button
                 onClick={() => analyzeAccessibility('analyze')}
@@ -141,12 +141,12 @@ const AIAccessibilityAssistant = () => {
                 {isAnalyzing ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Analyzing...
+                    Analisando...
                   </>
                 ) : (
                   <>
                     <Eye className="mr-2 h-4 w-4" />
-                    Analyze Current Page
+                    Analisar Página Atual
                   </>
                 )}
               </Button>
@@ -156,7 +156,7 @@ const AIAccessibilityAssistant = () => {
           <TabsContent value="suggest" className="space-y-4">
             <div className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Get AI-powered suggestions for improving accessibility with code examples.
+                Obtenha sugestões com IA para melhorar a acessibilidade com exemplos de código.
               </p>
               <Button
                 onClick={() => analyzeAccessibility('suggest')}
@@ -166,12 +166,12 @@ const AIAccessibilityAssistant = () => {
                 {isAnalyzing ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating...
+                    Gerando...
                   </>
                 ) : (
                   <>
                     <Lightbulb className="mr-2 h-4 w-4" />
-                    Get Suggestions
+                    Obter Sugestões
                   </>
                 )}
               </Button>
@@ -181,7 +181,7 @@ const AIAccessibilityAssistant = () => {
           <TabsContent value="chat" className="space-y-4">
             <div className="space-y-4">
               <Textarea
-                placeholder="Ask me anything about web accessibility, WCAG guidelines, or best practices..."
+                placeholder="Pergunte-me qualquer coisa sobre acessibilidade web, diretrizes WCAG ou melhores práticas..."
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
                 className="min-h-[100px]"
@@ -195,12 +195,12 @@ const AIAccessibilityAssistant = () => {
                 {isAnalyzing ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Thinking...
+                    Pensando...
                   </>
                 ) : (
                   <>
                     <MessageSquare className="mr-2 h-4 w-4" />
-                    Ask Question
+                    Fazer Pergunta
                   </>
                 )}
               </Button>
@@ -212,7 +212,7 @@ const AIAccessibilityAssistant = () => {
           <div className="mt-6 p-4 rounded-lg bg-muted">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-primary" />
-              AI Analysis Results
+              Resultados da Análise da IA
             </h3>
             <div className="prose prose-sm max-w-none dark:prose-invert">
               <pre className="whitespace-pre-wrap text-sm">{analysis}</pre>

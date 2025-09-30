@@ -11,7 +11,7 @@ interface DashboardSidebarProps {
 const DashboardSidebar = ({ activeSection, onNavClick, id }: DashboardSidebarProps) => {
   const navItems = [
     { icon: Home, label: 'Dashboard', section: 'dashboard' },
-    { icon: Sparkles, label: 'AI Assistant', section: 'ai-assistant' },
+    { icon: Sparkles, label: 'Assistente de IA', section: 'ai-assistant' },
     { icon: BarChart3, label: 'Analytics', section: 'analytics' },
     { icon: Users, label: 'Users', section: 'users' },
     { icon: Video, label: 'Mídia Acessível', section: 'accessible-media' },
