@@ -1,10 +1,26 @@
 // Componente de testes de contraste para validação com usuários com deficiência visual
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+
+interface ContrastResult {
+  id: string;
+  created_at: string;
+  test_type: string;
+  color1: string;
+  color2: string | null;
+  contrast_ratio: number;
+  wcag_level: string;
+  passes_aa: boolean;
+  passes_aaa: boolean;
+}
 
 const ContrastTests = () => {
   const [selectedTest, setSelectedTest] = useState<string>('');
   const [testResults, setTestResults] = useState<Record<string, boolean>>({});
+  const [allResults, setAllResults] = useState<ContrastResult[]>([]);
+  const { toast } = useToast();
 
   const contrastTests = [
     {
@@ -49,8 +65,107 @@ const ContrastTests = () => {
     }
   ];
 
-  const handleTestResult = (testId: string, result: boolean) => {
+  // Load initial results and subscribe to real-time updates
+  useEffect(() => {
+    loadResults();
+    
+    const channel = supabase
+      .channel('contrast_results_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'contrast_results'
+        },
+        (payload) => {
+          setAllResults(prev => [payload.new as ContrastResult, ...prev]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const loadResults = async () => {
+    const { data, error } = await supabase
+      .from('contrast_results')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    if (error) {
+      console.error('Error loading results:', error);
+    } else if (data) {
+      setAllResults(data);
+    }
+  };
+
+  const handleTestResult = async (testId: string, result: boolean) => {
     setTestResults(prev => ({ ...prev, [testId]: result }));
+    
+    // Find the test to get details
+    const test = contrastTests.find(t => t.id === testId);
+    if (!test) return;
+
+    // Calculate average contrast ratio from examples
+    const avgContrast = test.examples
+      .filter(ex => ex.contrast !== 'N/A')
+      .reduce((sum, ex) => sum + parseFloat(ex.contrast.split(':')[0]), 0) / 
+      test.examples.filter(ex => ex.contrast !== 'N/A').length || 0;
+
+    // Determine WCAG level
+    let wcagLevel = 'Fail';
+    let passesAA = false;
+    let passesAAA = false;
+
+    if (result) {
+      if (test.id === 'normal-text') {
+        passesAA = avgContrast >= 4.5;
+        passesAAA = avgContrast >= 7;
+      } else if (test.id === 'large-text') {
+        passesAA = avgContrast >= 3;
+        passesAAA = avgContrast >= 4.5;
+      } else if (test.id === 'ui-elements') {
+        passesAA = avgContrast >= 3;
+        passesAAA = avgContrast >= 4.5;
+      } else {
+        passesAA = result;
+        passesAAA = result;
+      }
+
+      if (passesAAA) wcagLevel = 'AAA';
+      else if (passesAA) wcagLevel = 'AA';
+    }
+
+    // Save to database
+    const { error } = await supabase
+      .from('contrast_results')
+      .insert({
+        test_type: test.title,
+        color1: testId,
+        color2: null,
+        contrast_ratio: avgContrast || 0,
+        wcag_level: wcagLevel,
+        passes_aa: passesAA,
+        passes_aaa: passesAAA
+      });
+
+    if (error) {
+      console.error('Error saving result:', error);
+      toast({
+        title: 'Erro ao salvar',
+        description: 'Não foi possível salvar o resultado',
+        variant: 'destructive'
+      });
+    } else {
+      toast({
+        title: 'Resultado salvo',
+        description: 'O resultado do teste foi salvo com sucesso'
+      });
+    }
   };
 
   const getResultsText = () => {
@@ -371,6 +486,76 @@ Enviado automaticamente pelo sistema de testes de contraste.`;
           <p><strong>Elementos UI:</strong> Mínimo 3:1 para elementos interativos</p>
           <p><strong>Daltonismo:</strong> Não dependa apenas da cor para transmitir informação</p>
         </div>
+      </div>
+
+      {/* Feed de resultados em tempo real */}
+      <div className="mt-8 p-6 bg-muted rounded-lg">
+        <h3 className="text-lg font-semibold nav-text mb-4">
+          📊 Resultados em Tempo Real
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Veja todos os testes de contraste realizados por usuários em tempo real
+        </p>
+        
+        {allResults.length === 0 ? (
+          <div className="text-center py-8 text-muted-foreground">
+            <p>Nenhum teste realizado ainda. Seja o primeiro!</p>
+          </div>
+        ) : (
+          <div className="space-y-3 max-h-96 overflow-y-auto">
+            {allResults.map((result) => (
+              <div
+                key={result.id}
+                className={`p-4 rounded-lg border-2 ${
+                  result.wcag_level === 'AAA'
+                    ? 'bg-green-50 border-green-300'
+                    : result.wcag_level === 'AA'
+                    ? 'bg-blue-50 border-blue-300'
+                    : 'bg-red-50 border-red-300'
+                }`}
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h4 className="font-semibold text-sm">{result.test_type}</h4>
+                      <span
+                        className={`px-2 py-1 text-xs font-bold rounded ${
+                          result.wcag_level === 'AAA'
+                            ? 'bg-green-600 text-white'
+                            : result.wcag_level === 'AA'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-red-600 text-white'
+                        }`}
+                      >
+                        {result.wcag_level}
+                      </span>
+                    </div>
+                    <div className="text-xs text-muted-foreground space-y-1">
+                      <p>
+                        Contraste: {result.contrast_ratio.toFixed(1)}:1
+                      </p>
+                      <p>
+                        {result.passes_aa && '✓ WCAG AA '}
+                        {result.passes_aaa && '✓ WCAG AAA'}
+                        {!result.passes_aa && !result.passes_aaa && '✗ Não passou'}
+                      </p>
+                      <p className="text-xs opacity-70">
+                        {new Date(result.created_at).toLocaleString('pt-BR')}
+                      </p>
+                    </div>
+                  </div>
+                  {result.wcag_level === 'AAA' ? (
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                  ) : result.wcag_level === 'AA' ? (
+                    <CheckCircle className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                  ) : (
+                    <XCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
