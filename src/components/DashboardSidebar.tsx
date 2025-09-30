@@ -1,5 +1,5 @@
 // Accessible sidebar with proper semantic structure and ARIA labels
-import { BarChart3, Users, Settings, Bell, Home, TestTube, FileText, Keyboard, Video, Palette } from 'lucide-react';
+import { BarChart3, Users, Settings, Bell, Home, TestTube, FileText, Keyboard, Video, Palette, Sparkles } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 interface DashboardSidebarProps {
@@ -11,6 +11,7 @@ interface DashboardSidebarProps {
 const DashboardSidebar = ({ activeSection, onNavClick, id }: DashboardSidebarProps) => {
   const navItems = [
     { icon: Home, label: 'Dashboard', section: 'dashboard' },
+    { icon: Sparkles, label: 'AI Assistant', section: 'ai-assistant' },
     { icon: BarChart3, label: 'Analytics', section: 'analytics' },
     { icon: Users, label: 'Users', section: 'users' },
     { icon: Video, label: 'Mídia Acessível', section: 'accessible-media' },
