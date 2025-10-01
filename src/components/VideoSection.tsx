@@ -3,8 +3,8 @@ import { useRef } from 'react';
 import SubtitleControls from './SubtitleControls';
 import firstVideo from '../assets/videos/videoplayback1.mp4';
 import secondVideo from '../assets/videos/videoplayback2.mp4';
-import firstVideoVtt from '../assets/subtitles/videoplayback1.vtt';
-import secondVideoVtt from '../assets/subtitles/videoplayback2.vtt';
+// import firstVideoVtt from '../assets/subtitles/videoplayback1.vtt';
+// import secondVideoVtt from '../assets/subtitles/videoplayback2.vtt';
 import firstVideoPoster from '../assets/posters/3minutos.png';
 
 const VideoSection = () => {
@@ -12,11 +12,11 @@ const VideoSection = () => {
   const video2Ref = useRef<HTMLVideoElement>(null);
 
   const subtitleTracks = [
-    { label: 'Português', src: firstVideoVtt, language: 'pt-BR' }
+    { label: 'Português', src: "/subtitles/3-minutos.vtt", language: 'pt-BR' }
   ];
 
   const bunnySubtitleTracks = [
-    { label: 'Português', src: secondVideoVtt, language: 'pt-BR' }
+    { label: 'Português', src: "/subtitles/meu-amigo-nietzsche.vtt", language: 'pt-BR' }
   ];
 
   return (
@@ -47,6 +47,7 @@ const VideoSection = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Video with subtitles and accessibility features */}
         <div className="relative">
+          <h2 className="text-sm sm:text-base font-medium nav-text mb-2">3 Minutos</h2>
           <video
             ref={video1Ref}
             className="w-full bg-black rounded object-contain"
@@ -58,7 +59,7 @@ const VideoSection = () => {
             <source src={firstVideo} type="video/mp4" />
             <track
               kind="subtitles"
-              src={firstVideoVtt}
+              src="/subtitles/3-minutos.vtt"
               srcLang="pt-BR"
               label="Português"
               default
@@ -75,6 +76,7 @@ const VideoSection = () => {
 
         {/* Second video with subtitles */}
         <div className="relative">
+          <h2 className="text-sm sm:text-base font-medium nav-text mb-2">Meu Amigo Nietzsche</h2>
           <video
             ref={video2Ref}
             className="w-full bg-black rounded object-contain"
@@ -86,7 +88,7 @@ const VideoSection = () => {
             <source src={secondVideo} type="video/mp4" />
             <track
               kind="subtitles"
-              src={secondVideoVtt}
+              src="/subtitles/meu-amigo-nietzsche.vtt"
               srcLang="pt-BR"
               label="Português"
               default

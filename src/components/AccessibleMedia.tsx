@@ -1,7 +1,7 @@
 // Componente de mídia acessível para teste com usuários com deficiência
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Captions, Settings, Download, Share } from 'lucide-react';
-import bigBuckBunnyVtt from '../assets/subtitles/big-buck-bunny.vtt';
+// import bigBuckBunnyVtt from '../assets/subtitles/big-buck-bunny.vtt';
 // Remover importação do VTT - usar arquivo local
 
 const AccessibleMedia = () => {
@@ -313,7 +313,7 @@ const AccessibleMedia = () => {
               <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
               <track
                 kind="subtitles"
-                src={bigBuckBunnyVtt}
+                // src={bigBuckBunnyVtt}
                 srcLang="pt-BR"
                 label="Português"
                 default
