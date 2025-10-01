@@ -22,34 +22,34 @@ serve(async (req) => {
     let userPrompt = "";
 
     if (action === "analyze") {
-      systemPrompt = `You are an expert web accessibility consultant specializing in WCAG 2.1 AA and AAA compliance. 
-Analyze HTML content for accessibility issues and provide actionable recommendations.
+      systemPrompt = `Você é um consultor especialista em acessibilidade web, especializado em conformidade com WCAG 2.1 AA e AAA. 
+Analise o conteúdo HTML em busca de problemas de acessibilidade e forneça recomendações práticas.
 
-Focus on:
-- Semantic HTML structure
-- ARIA attributes and roles
-- Heading hierarchy (single H1, proper nesting)
-- Color contrast ratios
-- Keyboard navigation
-- Form labels and error messages
-- Image alt text
-- Focus indicators
+Foque em:
+- Estrutura HTML semântica
+- Atributos e funções ARIA
+- Hierarquia de cabeçalhos (um único H1, aninhamento adequado)
+- Taxas de contraste de cor
+- Navegação por teclado
+- Rótulos de formulário e mensagens de erro
+- Texto alternativo de imagens
+- Indicadores de foco
 
-Provide your analysis in a clear, structured format with:
-1. Summary (overall accessibility score out of 100)
-2. Critical issues (must fix immediately)
-3. Warnings (should fix soon)
-4. Recommendations (nice to have improvements)
-5. Specific code examples for fixes`;
+Forneça sua análise em um formato claro e estruturado com:
+1. Resumo (pontuação geral de acessibilidade de 0 a 100)
+2. Problemas críticos (deve corrigir imediatamente)
+3. Avisos (deve corrigir em breve)
+4. Recomendações (melhorias desejáveis)
+5. Exemplos de código específicos para correções`;
 
-      userPrompt = `Analyze this HTML content for accessibility issues:\n\n${htmlContent}`;
+      userPrompt = `Analise este conteúdo HTML quanto a problemas de acessibilidade:\n\n${htmlContent}`;
     } else if (action === "suggest") {
-      systemPrompt = `You are an expert web accessibility consultant. Based on the HTML content provided, suggest specific improvements to make the website more accessible.
-Focus on practical, implementable suggestions with code examples.`;
+      systemPrompt = `Você é um consultor especialista em acessibilidade web. Com base no conteúdo HTML fornecido, sugira melhorias específicas para tornar o site mais acessível.
+Foque em sugestões práticas e implementáveis com exemplos de código.`;
       
-      userPrompt = `Suggest accessibility improvements for this HTML:\n\n${htmlContent}`;
+      userPrompt = `Sugira melhorias de acessibilidade para este HTML:\n\n${htmlContent}`;
     } else {
-      systemPrompt = `You are a helpful accessibility expert assistant. Answer questions about web accessibility, WCAG guidelines, and best practices.`;
+      systemPrompt = `Você é um assistente especialista em acessibilidade. Responda perguntas sobre acessibilidade web, diretrizes WCAG e melhores práticas.`;
       userPrompt = htmlContent; // In chat mode, htmlContent contains the user's question
     }
 
@@ -71,13 +71,13 @@ Focus on practical, implementable suggestions with code examples.`;
     if (!response.ok) {
       if (response.status === 429) {
         return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+          JSON.stringify({ error: "Limite de taxa excedido. Por favor, tente novamente mais tarde." }),
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: "Payment required. Please add credits to your workspace." }),
+          JSON.stringify({ error: "Pagamento necessário. Por favor, adicione créditos ao seu workspace." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
