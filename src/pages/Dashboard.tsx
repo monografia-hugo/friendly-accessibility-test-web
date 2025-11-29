@@ -16,6 +16,7 @@ import AccessibleForms from '@/components/AccessibleForms';
 import KeyboardNavigation from '@/components/KeyboardNavigation';
 import AccessibleMedia from '@/components/AccessibleMedia';
 import ContrastTests from '@/components/ContrastTests';
+import AIAccessibilityAssistant from '@/components/AIAccessibilityAssistant';
 import { useState } from 'react';
 import dashboardHero from '@/assets/dashboard-hero.jpg';
 import TextSection from '@/components/TextSection';
@@ -59,6 +60,8 @@ const Dashboard = () => {
         return <AccessibleMedia />;
       case 'contrast-tests':
         return <ContrastTests />;
+      case 'ai-assistant':
+        return <AIAccessibilityAssistant />;
       default:
         return (
           <>
