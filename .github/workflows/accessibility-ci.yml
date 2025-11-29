@@ -1,0 +1,59 @@
+name: Accessibility CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Install npm dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run accessibility check
+        run: python accessibility_checker.py
+
+      - name: Upload report
+        uses: actions/upload-artifact@v3
+        with:
+          name: accessibility-report
+          path: report.json
+          retention-days: 30
+
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Accessibility check failed - ${context.sha.substring(0, 7)}`,
+              body: `The accessibility check has failed. Please review the [report artifact](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
+              labels: ['accessibility', 'ci-failure']
+            })
