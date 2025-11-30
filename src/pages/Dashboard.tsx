@@ -78,7 +78,7 @@ const Dashboard = () => {
               />
               <div className="absolute inset-0 bg-black/40"></div>
               <div className="relative p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
-                <h1 id="hero-heading" className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">Bem-vindo ao Painel</h1>
+                <h1 id="hero-heading" className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">Bem-vindo ao Painel (amigável)</h1>
                 <p className="text-sm sm:text-base text-white/90">Monitore o desempenho do seu negócio com análises abrangentes</p>
               </div>
             </section>
