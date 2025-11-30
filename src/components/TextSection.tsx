@@ -10,7 +10,7 @@ const TextSection = () => {
       >
         <h2
           id="text-section-heading"
-          className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6 text-slate-800 dark:text-slate-100 animate-pulse"
+          className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 md:mb-6 text-slate-800 dark:text-slate-100"
         >
           ✨ Tipografia e Tamanhos de Texto
         </h2>
