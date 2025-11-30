@@ -41,7 +41,7 @@ const TextSection = () => {
                       Acessibilidade Digital
                     </p>
                   </TableCell>
-                  <TableCell className="align-top text-sm text-slate-600 dark:text-slate-400">
+                  <TableCell className="align-top text-sm text-slate-700 dark:text-slate-300">
                     Títulos principais que capturam a atenção e estabelecem hierarquia visual clara.
                   </TableCell>
                 </TableRow>
@@ -55,7 +55,7 @@ const TextSection = () => {
                       Inclusão para Todos
                     </p>
                   </TableCell>
-                  <TableCell className="align-top text-sm text-slate-600 dark:text-slate-400">
+                  <TableCell className="align-top text-sm text-slate-700 dark:text-slate-300">
                     Subtítulos que organizam o conteúdo e facilitam a navegação.
                   </TableCell>
                 </TableRow>
@@ -69,7 +69,7 @@ const TextSection = () => {
                       Tecnologia que Conecta Pessoas
                     </p>
                   </TableCell>
-                  <TableCell className="align-top text-sm text-slate-600 dark:text-slate-400">
+                  <TableCell className="align-top text-sm text-slate-700 dark:text-slate-300">
                     Conteúdo principal que mantém o foco e a legibilidade.
                   </TableCell>
                 </TableRow>
@@ -83,7 +83,7 @@ const TextSection = () => {
                       A acessibilidade digital não é apenas uma obrigação legal, mas uma oportunidade de criar experiências mais ricas e inclusivas para todos os usuários, independentemente de suas habilidades ou limitações.
                     </p>
                   </TableCell>
-                  <TableCell className="align-top text-sm text-slate-600 dark:text-slate-400">
+                  <TableCell className="align-top text-sm text-slate-700 dark:text-slate-300">
                     Parágrafos de conteúdo que equilibram legibilidade e densidade de informação.
                   </TableCell>
                 </TableRow>
@@ -97,7 +97,7 @@ const TextSection = () => {
                       Implementar padrões como WCAG 2.1, usar contraste adequado, fornecer alternativas textuais para mídia e garantir navegação por teclado são fundamentais para uma web verdadeiramente acessível.
                     </p>
                   </TableCell>
-                  <TableCell className="align-top text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                  <TableCell className="align-top text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                     Informações complementares e detalhes técnicos importantes.
                   </TableCell>
                 </TableRow>
@@ -111,7 +111,7 @@ const TextSection = () => {
                       WCAG 2.1 AA • Contraste mínimo 4.5:1 • Navegação por teclado • Leitores de tela • Alt text obrigatório
                     </p>
                   </TableCell>
-                  <TableCell className="align-top text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                  <TableCell className="align-top text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                     Metadados, legendas e informações técnicas essenciais.
                   </TableCell>
                 </TableRow>
