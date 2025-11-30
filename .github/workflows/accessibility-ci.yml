@@ -9,6 +9,10 @@ on:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
 
     steps:
       - name: Checkout repository
@@ -48,12 +52,19 @@ jobs:
       - name: Notify on failure
         if: failure()
         uses: actions/github-script@v6
+        continue-on-error: true
         with:
           script: |
-            github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🚨 Accessibility check failed - ${context.sha.substring(0, 7)}`,
-              body: `The accessibility check has failed. Please review the [report artifact](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
-              labels: ['accessibility', 'ci-failure']
-            })
+            try {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `🚨 Accessibility check failed - ${context.sha.substring(0, 7)}`,
+                body: `The accessibility check has failed. Please review the [report artifact](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
+                labels: ['accessibility', 'ci-failure']
+              });
+              console.log('Issue created successfully');
+            } catch (error) {
+              console.log('Could not create issue:', error.message);
+              console.log('Please check the workflow run for accessibility report details.');
+            }
