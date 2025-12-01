@@ -14,42 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      contrast_results: {
-        Row: {
-          color1: string
-          color2: string | null
-          contrast_ratio: number
-          created_at: string
-          id: string
-          passes_aa: boolean
-          passes_aaa: boolean
-          test_type: string
-          wcag_level: string
-        }
-        Insert: {
-          color1: string
-          color2?: string | null
-          contrast_ratio: number
-          created_at?: string
-          id?: string
-          passes_aa?: boolean
-          passes_aaa?: boolean
-          test_type: string
-          wcag_level: string
-        }
-        Update: {
-          color1?: string
-          color2?: string | null
-          contrast_ratio?: number
-          created_at?: string
-          id?: string
-          passes_aa?: boolean
-          passes_aaa?: boolean
-          test_type?: string
-          wcag_level?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
