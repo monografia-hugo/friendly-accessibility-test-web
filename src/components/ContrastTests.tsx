@@ -91,6 +91,7 @@ const ContrastTests = () => {
 
   const loadResults = async () => {
     const { data, error } = await supabase
+      // @ts-ignore - Table types will be regenerated
       .from('contrast_results')
       .select('*')
       .order('created_at', { ascending: false })
@@ -142,6 +143,7 @@ const ContrastTests = () => {
 
     // Save to database
     const { error } = await supabase
+      // @ts-ignore - Table types will be regenerated
       .from('contrast_results')
       .insert({
         test_type: test.title,
@@ -151,7 +153,7 @@ const ContrastTests = () => {
         wcag_level: wcagLevel,
         passes_aa: passesAA,
         passes_aaa: passesAAA
-      });
+      } as any);
 
     if (error) {
       console.error('Error saving result:', error);
